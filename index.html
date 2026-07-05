@@ -3,14 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIAE - Inicio de Sesión</title>
+    <title>SIAE - Sistema Integral</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
         body { background: #ececec; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
         
-        .fondo { width: 100%; max-width: 1000px; height: 450px; background: linear-gradient(140deg, #d88900 0%, #1b2e52 40%, #102a4e 100%); position: relative; overflow: hidden; }
+        /* Contenedor principal que enmarca el proyecto */
+        .contenedor-siae { width: 100%; max-width: 1000px; height: 450px; position: relative; box-shadow: 0 4px 15px rgba(0,0,0,0.2); overflow: hidden; }
+
+        /* ==========================================================================
+           PANTALLA 1: LOGIN (CON CUADROS FLOTANTES)
+           ========================================================================== */
+        #pantalla-login { width: 100%; height: 100%; background: linear-gradient(140deg, #d88900 0%, #1b2e52 40%, #102a4e 100%); position: relative; overflow: hidden; display: flex; }
         
-        /* Efecto de burbujas (cuadros) */
         .bg-bubbles { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
         .bg-bubbles li { position: absolute; list-style: none; display: block; width: 40px; height: 40px; background-color: rgba(255, 255, 255, 0.15); bottom: -160px; animation: square 25s infinite linear; }
         .bg-bubbles li:nth-child(1) { left: 10%; }
@@ -23,60 +28,112 @@
         .bg-bubbles li:nth-child(8) { left: 55%; width: 20px; height: 20px; animation-delay: 15s; }
         .bg-bubbles li:nth-child(9) { left: 25%; width: 10px; height: 10px; animation-delay: 2s; }
         .bg-bubbles li:nth-child(10) { left: 90%; width: 160px; height: 160px; animation-delay: 11s; }
-
         @keyframes square { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(-700px) rotate(600deg); opacity: 0; } }
 
-        /* Login */
-        .login { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 280px; text-align: center; z-index: 5; }
+        .login-box { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 280px; text-align: center; z-index: 5; }
         h1 { color: white; font-weight: 300; margin-bottom: 20px; }
         input { width: 100%; height: 38px; margin-bottom: 10px; background: rgba(255, 255, 255, .15); border: 1px solid rgba(255, 255, 255, .4); color: white; text-align: center; border-radius: 3px; }
+        input::placeholder { color: #d9d9d9; }
         
         .captcha { display: flex; gap: 8px; margin-bottom: 10px; }
-        .codigo { 
-            width: 50%; height: 38px; background: #ef9f1f; display: flex; justify-content: center; align-items: center; 
-            font-size: 22px; font-weight: bold; font-family: 'Times New Roman', serif; border-radius: 2px; color: #000; position: relative;
-        }
+        .codigo { width: 50%; height: 38px; background: #ef9f1f; display: flex; justify-content: center; align-items: center; font-size: 22px; font-weight: bold; font-family: 'Times New Roman', serif; border-radius: 2px; color: #000; position: relative; }
         .codigo::before { content: ""; position: absolute; width: 100%; height: 100%; background-image: linear-gradient(20deg, transparent 48%, rgba(0,0,0,0.3) 50%, transparent 52%), linear-gradient(-25deg, transparent 48%, rgba(0,0,0,0.3) 50%, transparent 52%); }
         .captcha input { width: 50%; margin: 0; }
-        button { width: 100%; height: 40px; background: linear-gradient(#ffffff, #d6d6d6); border: none; cursor: pointer; border-radius: 3px; font-size: 15px; }
+        
+        .btn-login { width: 100%; height: 40px; background: linear-gradient(#ffffff, #d6d6d6); border: none; cursor: pointer; border-radius: 3px; font-size: 15px; font-weight: bold; }
+        .btn-login:hover { background: white; }
+
+        /* ==========================================================================
+           PANTALLA 2: DASHBOARD (CON IMAGEN DE FONDO)
+           ========================================================================== */
+        #pantalla-dashboard { width: 100%; height: 100%; background-image: url('dashboard-original.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; display: none; /* Oculto al inicio */ }
+        
+        .zona-interactiva { position: absolute; cursor: pointer; background-color: rgba(255, 255, 255, 0); transition: all 0.2s; }
+        .zona-interactiva:hover { background-color: rgba(255, 255, 255, 0.08); }
+
+        /* Ajustes de botones sobre tu captura */
+        .btn-historial { top: 15%; left: 0; width: 24%; height: 8%; }
+        .btn-agenda { top: 23%; left: 0; width: 24%; height: 8%; }
+        .btn-tramites { top: 31%; left: 0; width: 24%; height: 8%; }
+        .btn-calificaciones { top: 39%; left: 0; width: 24%; height: 8%; }
+        .btn-salir { top: 0; right: 0; width: 10%; height: 12%; }
     </style>
 </head>
 <body>
 
-<div class="fondo">
-    <div class="login">
-        <h1>Bienvenido al SIAE</h1>
-        <input type="text" placeholder="Usuario" id="usr">
-        <input type="password" placeholder="NIP" id="nip">
-        
-        <div class="captcha">
-            <div class="codigo" id="captchaCode"></div>
-            <input type="text" id="captchaInput" placeholder="Captcha">
+<div class="contenedor-siae">
+
+    <div id="pantalla-login">
+        <div class="login-box">
+            <h1>Bienvenido al SIAE</h1>
+            <input type="text" placeholder="Usuario">
+            <input type="password" placeholder="NIP">
+            
+            <div class="captcha">
+                <div class="codigo" id="captchaCode"></div>
+                <input type="text" id="captchaInput" placeholder="Captcha">
+            </div>
+
+            <button class="btn-login" onclick="validar()">Acceder</button>
         </div>
 
-        <button onclick="validar()">Acceder</button>
+        <ul class="bg-bubbles">
+            <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+        </ul>
     </div>
 
-    <ul class="bg-bubbles">
-        <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
-    </ul>
+    <div id="pantalla-dashboard">
+        <div class="zona-interactiva btn-historial" onclick="mostrarSeccion('Historial Académico')"></div>
+        <div class="zona-interactiva btn-agenda" onclick="mostrarSeccion('Agenda y Horarios')"></div>
+        <div class="zona-interactiva btn-tramites" onclick="mostrarSeccion('Trámites Escolares')"></div>
+        <div class="zona-interactiva btn-calificaciones" onclick="mostrarSeccion('Consulta de Calificaciones')"></div>
+        <div class="zona-interactiva btn-salir" onclick="regresarLogin()"></div>
+    </div>
+
 </div>
 
 <script>
     let resultado;
+
+    // Generar Captcha
     function generarCaptcha() {
         let n1 = Math.floor(Math.random() * 10) + 1;
         let n2 = Math.floor(Math.random() * 10) + 1;
         resultado = n1 + n2;
         document.getElementById('captchaCode').innerText = n1 + " + " + n2 + " =";
     }
+
+    // Validar Inicio de Sesión
     function validar() {
         let valor = document.getElementById('captchaInput').value;
-        if(parseInt(valor) === resultado) { alert("Acceso exitoso"); } 
-        else { alert("Captcha incorrecto"); document.getElementById('captchaInput').value = ""; generarCaptcha(); }
+        if(parseInt(valor) === resultado) {
+            // El truco: Oculta el Login y muestra el Dashboard
+            document.getElementById('pantalla-login').style.display = 'none';
+            document.getElementById('pantalla-dashboard').style.display = 'block';
+        } else {
+            alert("Captcha incorrecto, intenta de nuevo.");
+            document.getElementById('captchaInput').value = "";
+            generarCaptcha();
+        }
     }
+
+    // Simulación de opciones
+    function mostrarSeccion(nombre) {
+        alert("Sección activa simulada: " + nombre);
+    }
+
+    // Cerrar sesión y resetear vista
+    function regresarLogin() {
+        document.getElementById('pantalla-dashboard').style.display = 'none';
+        document.getElementById('pantalla-login').style.display = 'flex';
+        document.getElementById('captchaInput').value = "";
+        generarCaptcha();
+    }
+
+    // Arrancar captcha al cargar la página
     generarCaptcha();
 </script>
 
 </body>
 </html>
+
