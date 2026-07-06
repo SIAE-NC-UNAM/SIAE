@@ -54,7 +54,7 @@
             padding: 0 25px; /* Espaciado idéntico en las esquinas */
             border-bottom: 3px solid #ef9f1f; 
         }
-        .logo-siae-png { height: 58px; width: auto; object-fit: contain; }
+        .logo-siae-svg { height: 58px; width: auto; object-fit: contain; }
         
         .siae-textos-cabecera { text-align: center; color: white; flex: 1; padding: 0 20px; }
         .siae-textos-cabecera .linea-u { font-size: 11px; font-weight: bold; letter-spacing: 0.3px; }
@@ -150,7 +150,7 @@
     <div id="pantalla-dashboard">
         
         <header class="encabezado-siae-logos">
-            <img src="unam.png" alt="" class="logo-siae-png">
+            <img src="unam.svg" alt="" class="logo-siae-svg">
             
             <div class="siae-textos-cabecera">
                 <div class="linea-u">UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO</div>
@@ -159,7 +159,7 @@
                 <div class="linea-i">Sistema Integral de Administración Escolar</div>
             </div>
             
-            <img src="siae.png" alt="" class="logo-siae-png">
+            <img src="siae.svg" alt="" class="logo-siae-svg">
         </header>
 
         <div class="siae-barra-usuario">
@@ -203,7 +203,7 @@
 
 </div>
 
-<script>
+<script {content_id: "siae_script_logic"}>
     let resultado;
 
     function generarCaptcha() {
