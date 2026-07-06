@@ -3,19 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIAE - Sistema Integral</title>
+    <title>SIAE - Sistema Integral de Administración Escolar</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, Helvetica, sans-serif; }
         body { background: #ececec; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
         
-        /* Contenedor principal que enmarca el proyecto */
-        .contenedor-siae { width: 100%; max-width: 1000px; height: 450px; position: relative; box-shadow: 0 4px 15px rgba(0,0,0,0.2); overflow: hidden; }
+        /* Contenedor principal del proyecto */
+        .contenedor-siae { width: 100%; max-width: 1100px; height: 580px; position: relative; box-shadow: 0 4px 12px rgba(0,0,0,0.15); overflow: hidden; background: #fff; border: 1px solid #999; }
 
         /* ==========================================================================
-           PANTALLA 1: LOGIN (CON CUADROS FLOTANTES)
+           PANTALLA 1: LOGIN (CON CUADROS FLOTANTES Y CAPTCHA REAL)
            ========================================================================== */
         #pantalla-login { width: 100%; height: 100%; background: linear-gradient(140deg, #d88900 0%, #1b2e52 40%, #102a4e 100%); position: relative; overflow: hidden; display: flex; }
-        
         .bg-bubbles { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
         .bg-bubbles li { position: absolute; list-style: none; display: block; width: 40px; height: 40px; background-color: rgba(255, 255, 255, 0.15); bottom: -160px; animation: square 25s infinite linear; }
         .bg-bubbles li:nth-child(1) { left: 10%; }
@@ -31,32 +30,99 @@
         @keyframes square { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(-700px) rotate(600deg); opacity: 0; } }
 
         .login-box { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 280px; text-align: center; z-index: 5; }
-        h1 { color: white; font-weight: 300; margin-bottom: 20px; }
-        input { width: 100%; height: 38px; margin-bottom: 10px; background: rgba(255, 255, 255, .15); border: 1px solid rgba(255, 255, 255, .4); color: white; text-align: center; border-radius: 3px; }
-        input::placeholder { color: #d9d9d9; }
-        
+        h1 { color: white; font-weight: 300; margin-bottom: 20px; font-size: 26px; }
+        .login-box input { width: 100%; height: 38px; margin-bottom: 10px; background: rgba(255, 255, 255, .15); border: 1px solid rgba(255, 255, 255, .4); color: white; text-align: center; border-radius: 3px; }
+        .login-box input::placeholder { color: #d9d9d9; }
         .captcha { display: flex; gap: 8px; margin-bottom: 10px; }
         .codigo { width: 50%; height: 38px; background: #ef9f1f; display: flex; justify-content: center; align-items: center; font-size: 22px; font-weight: bold; font-family: 'Times New Roman', serif; border-radius: 2px; color: #000; position: relative; }
         .codigo::before { content: ""; position: absolute; width: 100%; height: 100%; background-image: linear-gradient(20deg, transparent 48%, rgba(0,0,0,0.3) 50%, transparent 52%), linear-gradient(-25deg, transparent 48%, rgba(0,0,0,0.3) 50%, transparent 52%); }
         .captcha input { width: 50%; margin: 0; }
-        
         .btn-login { width: 100%; height: 40px; background: linear-gradient(#ffffff, #d6d6d6); border: none; cursor: pointer; border-radius: 3px; font-size: 15px; font-weight: bold; }
-        .btn-login:hover { background: white; }
 
         /* ==========================================================================
-           PANTALLA 2: DASHBOARD (CON IMAGEN DE FONDO)
+           PANTALLA 2: DASHBOARD CLON EXACTO DE TUS CAPTURAS
            ========================================================================== */
-        #pantalla-dashboard { width: 100%; height: 100%; background-image: url('dashboard-original.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; display: none; /* Oculto al inicio */ }
-        
-        .zona-interactiva { position: absolute; cursor: pointer; background-color: rgba(255, 255, 255, 0); transition: all 0.2s; }
-        .zona-interactiva:hover { background-color: rgba(255, 255, 255, 0.08); }
+        #pantalla-dashboard { width: 100%; height: 100%; display: none; flex-direction: column; background: #fff; }
 
-        /* Ajustes de botones sobre tu captura */
-        .btn-historial { top: 15%; left: 0; width: 24%; height: 8%; }
-        .btn-agenda { top: 23%; left: 0; width: 24%; height: 8%; }
-        .btn-tramites { top: 31%; left: 0; width: 24%; height: 8%; }
-        .btn-calificaciones { top: 39%; left: 0; width: 24%; height: 8%; }
-        .btn-salir { top: 0; right: 0; width: 10%; height: 12%; }
+        /* Encabezado Principal Oficial */
+        .encabezado-siae-logos {
+            height: 85px;
+            background: #001e3d; 
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px; /* Espaciado idéntico en las esquinas */
+            border-bottom: 3px solid #ef9f1f; 
+        }
+        .logo-siae-png { height: 58px; width: auto; object-fit: contain; }
+        
+        .siae-textos-cabecera { text-align: center; color: white; flex: 1; padding: 0 20px; }
+        .siae-textos-cabecera .linea-u { font-size: 11px; font-weight: bold; letter-spacing: 0.3px; }
+        .siae-textos-cabecera .linea-d { font-size: 10px; color: #cbd5e1; margin-top: 2px; }
+        .siae-textos-cabecera .linea-s { font-size: 9px; color: #94a3b8; margin-top: 1px; }
+        .siae-textos-cabecera .linea-i { font-size: 12px; font-weight: bold; color: #ef9f1f; margin-top: 4px; }
+
+        /* Segunda barra azul con iconos y usuario */
+        .siae-barra-usuario {
+            height: 25px;
+            background: #0d2c54;
+            border-top: 1px solid #ef9f1f;
+            display: flex;
+            align-items: center;
+            padding: 0 25px;
+            color: white;
+            font-size: 11px;
+            gap: 15px;
+        }
+        .iconos-control { color: #cbd5e1; font-size: 11px; cursor: pointer; display: flex; gap: 10px; }
+        .nombre-alumno-display { font-weight: normal; color: #fff; font-size: 11px; letter-spacing: 0.3px; }
+
+        .siae-cuerpo-sistema { display: flex; flex: 1; height: calc(100% - 110px); }
+
+        /* Menú lateral izquierdo plano minimalista con flechitas amarillas */
+        .siae-sidebar-izq { width: 170px; background: #e2e8f0; display: flex; flex-direction: column; padding-top: 15px; border-right: 1px solid #cbd5e1; background-image: linear-gradient(to bottom, #f1f5f9, #e2e8f0); }
+        .siae-item-menu { padding: 6px 15px; color: #1e293b; font-size: 11px; font-weight: normal; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+        .siae-item-menu::before { content: "▶"; color: #d88900; font-size: 7px; }
+        .siae-item-menu:hover { color: #d88900; font-weight: bold; }
+        
+        .btn-cerrar-siae { padding: 6px 15px; color: #1e293b; font-size: 11px; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+        .btn-cerrar-siae::before { content: "▶"; color: #d88900; font-size: 7px; }
+        .btn-cerrar-siae:hover { color: #b91c1c; font-weight: bold; }
+
+        /* Área central con la textura gris original repetible */
+        .siae-area-central { 
+            flex: 1; 
+            background-color: #f1f5f9; 
+            background-image: url('1000140702.jpg'); /* Carga tu imagen de grecas */
+            background-repeat: repeat; 
+            background-size: auto;
+            position: relative; 
+            display: flex; 
+            justify-content: center; 
+            padding-top: 35px; 
+        }
+
+        /* Ventana flotante del cuestionario */
+        .banner-aviso-siae {
+            width: 460px;
+            height: auto;
+            background: #ffffff;
+            border: 1px solid #94a3b8;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+            border-radius: 2px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            align-self: flex-start;
+        }
+        .banner-titulo { font-family: 'Comic Sans MS', cursive, sans-serif; font-size: 24px; color: #0284c7; font-weight: bold; margin-bottom: 10px; }
+        .banner-titulo span { color: #0d9488; }
+        .banner-texto { font-size: 13px; color: #334155; line-height: 1.5; font-weight: bold; margin-bottom: 20px; }
+        .banner-texto span { color: #0284c7; }
+        
+        .banner-logos-pie { display: flex; justify-content: center; gap: 8px; align-items: center; margin-top: 10px; border-top: 1px solid #e2e8f0; padding-top: 10px; }
+        .mini-logo-placeholder { font-size: 8px; font-weight: bold; background: #475569; color: white; padding: 2px 4px; border-radius: 1px; }
     </style>
 </head>
 <body>
@@ -76,18 +142,63 @@
 
             <button class="btn-login" onclick="validar()">Acceder</button>
         </div>
-
         <ul class="bg-bubbles">
             <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
         </ul>
     </div>
 
     <div id="pantalla-dashboard">
-        <div class="zona-interactiva btn-historial" onclick="mostrarSeccion('Historial Académico')"></div>
-        <div class="zona-interactiva btn-agenda" onclick="mostrarSeccion('Agenda y Horarios')"></div>
-        <div class="zona-interactiva btn-tramites" onclick="mostrarSeccion('Trámites Escolares')"></div>
-        <div class="zona-interactiva btn-calificaciones" onclick="mostrarSeccion('Consulta de Calificaciones')"></div>
-        <div class="zona-interactiva btn-salir" onclick="regresarLogin()"></div>
+        
+        <header class="encabezado-siae-logos">
+            <img src="unam.png" alt="" class="logo-siae-png">
+            
+            <div class="siae-textos-cabecera">
+                <div class="linea-u">UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO</div>
+                <div class="linea-d">Dirección General de Administración Escolar</div>
+                <div class="linea-s">Subdirección de Sistemas de Registro Escolar</div>
+                <div class="linea-i">Sistema Integral de Administración Escolar</div>
+            </div>
+            
+            <img src="siae.png" alt="" class="logo-siae-png">
+        </header>
+
+        <div class="siae-barra-usuario">
+            <div class="iconos-control">🖨️ ◀ ▶ ❤️ 👤</div>
+            <div class="nombre-alumno-display">Lopez Alejandrez Salvador</div>
+        </div>
+
+        <div class="siae-cuerpo-sistema">
+            
+            <nav class="siae-sidebar-izq">
+                <div class="siae-item-menu">Registros Académicos</div>
+                <div class="siae-item-menu">Trámites Escolares</div>
+                <div class="siae-item-menu">Security</div>
+                <div class="siae-item-menu">Elecciones</div>
+                <div class="siae-item-menu">Imprimir</div>
+                <div class="btn-cerrar-siae" onclick="regresarLogin()">Cerrar Sesión</div>
+            </nav>
+
+            <main class="siae-area-central">
+                
+                <div class="banner-aviso-siae">
+                    <div class="banner-titulo">Súmate <span>en la generación de</span></div>
+                    <div class="banner-texto">
+                        una <span>UNAM</span> cada vez <span>MÁS ACCESIBLE</span><br>
+                        e <span>INCLUYENTE</span> contestando el<br>
+                        siguiente cuestionario 👆
+                    </div>
+                    
+                    <div class="banner-logos-pie">
+                        <div class="mini-logo-placeholder">UNAM</div>
+                        <div class="mini-logo-placeholder">DGAE</div>
+                        <div class="mini-logo-placeholder">SIAE</div>
+                        <div class="mini-logo-placeholder">UHAPDI</div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+
     </div>
 
 </div>
@@ -95,7 +206,6 @@
 <script>
     let resultado;
 
-    // Generar Captcha
     function generarCaptcha() {
         let n1 = Math.floor(Math.random() * 10) + 1;
         let n2 = Math.floor(Math.random() * 10) + 1;
@@ -103,13 +213,11 @@
         document.getElementById('captchaCode').innerText = n1 + " + " + n2 + " =";
     }
 
-    // Validar Inicio de Sesión
     function validar() {
         let valor = document.getElementById('captchaInput').value;
         if(parseInt(valor) === resultado) {
-            // El truco: Oculta el Login y muestra el Dashboard
             document.getElementById('pantalla-login').style.display = 'none';
-            document.getElementById('pantalla-dashboard').style.display = 'block';
+            document.getElementById('pantalla-dashboard').style.display = 'flex';
         } else {
             alert("Captcha incorrecto, intenta de nuevo.");
             document.getElementById('captchaInput').value = "";
@@ -117,12 +225,6 @@
         }
     }
 
-    // Simulación de opciones
-    function mostrarSeccion(nombre) {
-        alert("Sección activa simulada: " + nombre);
-    }
-
-    // Cerrar sesión y resetear vista
     function regresarLogin() {
         document.getElementById('pantalla-dashboard').style.display = 'none';
         document.getElementById('pantalla-login').style.display = 'flex';
@@ -130,10 +232,8 @@
         generarCaptcha();
     }
 
-    // Arrancar captcha al cargar la página
     generarCaptcha();
 </script>
 
 </body>
 </html>
-
