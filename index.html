@@ -6,9 +6,20 @@
     <title>SIAE - Sistema Integral de Administración Escolar</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, Helvetica, sans-serif; }
-        body { background: #ececec; min-height: 100vh; display: flex; justify-content: center; align-items: flex-start; padding: 0; }
         
-        /* Contenedor principal: se eliminan los tamaños fijos de caja para que crezca libremente hacia abajo */
+        /* El cuerpo ahora lleva tu textura gris original para asegurar que NUNCA se vea blanco o liso abajo */
+        body { 
+            background-color: #f1f5f9; 
+            background-image: url('1000140702.jpg'); 
+            background-repeat: repeat; 
+            background-size: auto;
+            min-height: 100vh; 
+            display: flex; 
+            justify-content: center; 
+            align-items: flex-start; 
+        }
+        
+        /* Contenedor principal sin límite de altura (height auto) para que se estire libremente */
         .contenedor-siae { 
             width: 100%; 
             max-width: 1100px; 
@@ -50,11 +61,11 @@
         .btn-login { width: 100%; height: 40px; background: linear-gradient(#ffffff, #d6d6d6); border: none; cursor: pointer; border-radius: 3px; font-size: 15px; font-weight: bold; }
 
         /* ==========================================================================
-           PANTALLA 2: DASHBOARD DINÁMICO COMPLETAMENTE ALARGADO
+           PANTALLA 2: DASHBOARD
            ========================================================================== */
-        #pantalla-dashboard { width: 100%; display: none; flex-direction: column; background: #fff; flex: 1; }
+        #pantalla-dashboard { width: 100%; display: none; flex-direction: column; background: transparent; flex: 1; }
 
-        /* Encabezado Principal Oficial */
+        /* Encabezado Principal */
         .encabezado-siae-logos {
             height: 85px;
             background: #001e3d; 
@@ -75,7 +86,7 @@
 
         .bloque-logos-derecha { display: flex; align-items: center; gap: 15px; }
 
-        /* Segunda barra azul con iconos y usuario */
+        /* Segunda barra azul */
         .siae-barra-usuario {
             height: 25px;
             background: #0d2c54;
@@ -91,7 +102,7 @@
         .iconos-control { color: #cbd5e1; font-size: 11px; cursor: pointer; display: flex; gap: 10px; align-items: center; }
         .nombre-alumno-display { font-weight: normal; color: #fff; font-size: 11px; letter-spacing: 0.3px; }
 
-        /* Animación Corazón */
+        /* Animación Corazón de Texto Puro */
         @keyframes latidoColor {
             0% { color: #ef4444; transform: scale(1); }
             50% { color: #3b82f6; transform: scale(1.3); }
@@ -99,10 +110,10 @@
         }
         .corazon-animado { display: inline-block; font-size: 14px; animation: latidoColor 2s infinite ease-in-out; vertical-align: middle; line-height: 1; }
 
-        /* El cuerpo ahora es flexible y se estira todo lo necesario hacia abajo */
-        .siae-cuerpo-sistema { display: flex; flex: 1; min-height: calc(100vh - 110px); align-items: stretch; }
+        /* El cuerpo hereda min-height para estirarse junto con los menús */
+        .siae-cuerpo-sistema { display: flex; flex: 1; min-height: calc(100vh - 110px); align-items: stretch; background: transparent; }
 
-        /* Menú lateral izquierdo estirado al 100% de la altura disponible */
+        /* Menú lateral izquierdo alargado */
         .siae-sidebar-izq { width: 170px; background: #e2e8f0; display: flex; flex-direction: column; padding-top: 15px; border-right: 1px solid #cbd5e1; background-image: linear-gradient(to bottom, #f1f5f9, #e2e8f0); flex-shrink: 0; }
         .menu-grupo { display: flex; flex-direction: column; }
         .siae-item-menu { padding: 6px 15px; color: #1e293b; font-size: 11px; font-weight: normal; cursor: pointer; display: flex; align-items: center; gap: 6px; user-select: none; }
@@ -116,13 +127,10 @@
         .siae-item-plano { padding: 6px 15px; color: #1e293b; font-size: 11px; cursor: pointer; }
         .siae-item-plano:hover { font-weight: bold; color: #b91c1c; }
 
-        /* Área central: ya no corta el contenido y hereda la textura de grecas directamente */
+        /* Área central transparente para que no pinte parches blancos */
         .siae-area-central { 
             flex: 1; 
-            background-color: #f1f5f9; 
-            background-image: url('1000140702.jpg'); 
-            background-repeat: repeat; 
-            background-size: auto;
+            background: transparent; 
             position: relative; 
             display: flex; 
             justify-content: center; 
@@ -133,13 +141,13 @@
         .banner-aviso-siae { width: 460px; height: 230px; background-image: url('anuncio.jpg'); background-size: contain; background-repeat: no-repeat; background-position: center; border: 1px solid #94a3b8; box-shadow: 0 4px 14px rgba(0,0,0,0.18); border-radius: 2px; position: relative; z-index: 10; align-self: flex-start; cursor: pointer; }
 
         /* ==========================================================================
-           CONTENEDOR DE TRAYECTORIA CORREGIDO (ALTO REAL SIN CORTE)
+           CONTENEDOR DE TRAYECTORIA CORREGIDO (ALTO REAL, SIN COMPRIMIR)
            ========================================================================== */
         .seccion-trayectoria-img {
             width: 800px;
-            height: 610px; /* Escalamos el alto real del documento basado en tu captura */
+            height: 600px; /* Tamaño exacto para que no se vea amontonado */
             background-image: url('trayectoria.jpg');
-            background-size: contain;
+            background-size: 100% 100%; /* Fuerza a acoplarse perfecto al tamaño real */
             background-repeat: no-repeat;
             background-position: top center;
             position: relative;
@@ -147,15 +155,14 @@
             box-shadow: 0 4px 14px rgba(0,0,0,0.15);
             border: 1px solid #cbd5e1;
             align-self: flex-start;
-            background-color: transparent; /* Permite ver la textura de grecas gris original */
         }
 
-        /* Posicionamiento milimétrico del selector y botón sobre la barra de consulta real */
+        /* Posicionamiento milimétrico interactivo del selector y botón */
         .zona-interactiva-consulta {
             position: absolute;
-            bottom: 30px; 
-            left: 23px;
-            width: 754px;
+            bottom: 24px; 
+            left: 20px;
+            width: 760px;
             height: 32px;
             display: flex;
             align-items: center;
@@ -202,7 +209,7 @@
             <img src="unam.svg" alt="" class="logo-siae-svg">
             <div class="siae-textos-cabecera">
                 <div class="linea-u">UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO</div>
-                <div class="linea-d">Dirección General de Administración Escolar</div>
+                <div class="linea-d">DireCCIÓN General de Administración Escolar</div>
                 <div class="linea-s">Subdirección de Sistemas de Registro Escolar</div>
                 <div class="linea-i">Sistema Integral de Administración Escolar</div>
             </div>
@@ -288,7 +295,6 @@
         if (!abierto) el.classList.add('abierto');
     }
 
-    /* Alternancia de pantallas */
     function cargarTrayectoria() {
         document.getElementById('bloque-anuncio').style.display = 'none';
         document.getElementById('bloque-trayectoria').style.display = 'block';
