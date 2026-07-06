@@ -40,7 +40,7 @@
         .btn-login { width: 100%; height: 40px; background: linear-gradient(#ffffff, #d6d6d6); border: none; cursor: pointer; border-radius: 3px; font-size: 15px; font-weight: bold; }
 
         /* ==========================================================================
-           PANTALLA 2: DASHBOARD CLON EXACTO DE TUS CAPTURAS
+           PANTALLA 2: DASHBOARD CLON EXACTO
            ========================================================================== */
         #pantalla-dashboard { width: 100%; height: 100%; display: none; flex-direction: column; background: #fff; }
 
@@ -51,7 +51,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 25px; /* Espaciado idéntico en las esquinas */
+            padding: 0 25px; 
             border-bottom: 3px solid #ef9f1f; 
         }
         .logo-siae-svg { height: 58px; width: auto; object-fit: contain; }
@@ -61,6 +61,9 @@
         .siae-textos-cabecera .linea-d { font-size: 10px; color: #cbd5e1; margin-top: 2px; }
         .siae-textos-cabecera .linea-s { font-size: 9px; color: #94a3b8; margin-top: 1px; }
         .siae-textos-cabecera .linea-i { font-size: 12px; font-weight: bold; color: #ef9f1f; margin-top: 4px; }
+
+        /* Contenedor de logos derechos */
+        .bloque-logos-derecha { display: flex; align-items: center; gap: 15px; }
 
         /* Segunda barra azul con iconos y usuario */
         .siae-barra-usuario {
@@ -93,7 +96,7 @@
         .siae-area-central { 
             flex: 1; 
             background-color: #f1f5f9; 
-            background-image: url('1000140702.jpg'); /* Carga tu imagen de grecas */
+            background-image: url('1000140702.jpg'); 
             background-repeat: repeat; 
             background-size: auto;
             position: relative; 
@@ -102,27 +105,22 @@
             padding-top: 35px; 
         }
 
-        /* Ventana flotante del cuestionario */
+        /* Ventana flotante con la imagen del anuncio real */
         .banner-aviso-siae {
             width: 460px;
-            height: auto;
-            background: #ffffff;
+            height: 230px; 
+            background-image: url('anuncio.jpg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
             border: 1px solid #94a3b8;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.18);
             border-radius: 2px;
-            padding: 20px;
-            text-align: center;
             position: relative;
             z-index: 10;
             align-self: flex-start;
+            cursor: pointer;
         }
-        .banner-titulo { font-family: 'Comic Sans MS', cursive, sans-serif; font-size: 24px; color: #0284c7; font-weight: bold; margin-bottom: 10px; }
-        .banner-titulo span { color: #0d9488; }
-        .banner-texto { font-size: 13px; color: #334155; line-height: 1.5; font-weight: bold; margin-bottom: 20px; }
-        .banner-texto span { color: #0284c7; }
-        
-        .banner-logos-pie { display: flex; justify-content: center; gap: 8px; align-items: center; margin-top: 10px; border-top: 1px solid #e2e8f0; padding-top: 10px; }
-        .mini-logo-placeholder { font-size: 8px; font-weight: bold; background: #475569; color: white; padding: 2px 4px; border-radius: 1px; }
     </style>
 </head>
 <body>
@@ -159,12 +157,15 @@
                 <div class="linea-i">Sistema Integral de Administración Escolar</div>
             </div>
             
-            <img src="siae.svg" alt="" class="logo-siae-svg">
+            <div class="bloque-logos-derecha">
+                <img src="dgae.svg" alt="" class="logo-siae-svg">
+                <img src="siae.svg" alt="" class="logo-siae-svg">
+            </div>
         </header>
 
         <div class="siae-barra-usuario">
             <div class="iconos-control">🖨️ ◀ ▶ ❤️ 👤</div>
-            <div class="nombre-alumno-display">Lopez Alejandrez Salvador</div>
+            <div class="nombre-alumno-display">LOPEZ ALEJANDREZ SALVADOR</div>
         </div>
 
         <div class="siae-cuerpo-sistema">
@@ -172,7 +173,7 @@
             <nav class="siae-sidebar-izq">
                 <div class="siae-item-menu">Registros Académicos</div>
                 <div class="siae-item-menu">Trámites Escolares</div>
-                <div class="siae-item-menu">Security</div>
+                <div class="siae-item-menu">Seguridad</div>
                 <div class="siae-item-menu">Elecciones</div>
                 <div class="siae-item-menu">Imprimir</div>
                 <div class="btn-cerrar-siae" onclick="regresarLogin()">Cerrar Sesión</div>
@@ -180,21 +181,7 @@
 
             <main class="siae-area-central">
                 
-                <div class="banner-aviso-siae">
-                    <div class="banner-titulo">Súmate <span>en la generación de</span></div>
-                    <div class="banner-texto">
-                        una <span>UNAM</span> cada vez <span>MÁS ACCESIBLE</span><br>
-                        e <span>INCLUYENTE</span> contestando el<br>
-                        siguiente cuestionario 👆
-                    </div>
-                    
-                    <div class="banner-logos-pie">
-                        <div class="mini-logo-placeholder">UNAM</div>
-                        <div class="mini-logo-placeholder">DGAE</div>
-                        <div class="mini-logo-placeholder">SIAE</div>
-                        <div class="mini-logo-placeholder">UHAPDI</div>
-                    </div>
-                </div>
+                <div class="banner-aviso-siae"></div>
 
             </main>
         </div>
@@ -203,7 +190,7 @@
 
 </div>
 
-<script {content_id: "siae_script_logic"}>
+<script {content_id: "siae_script_logic_final"}>
     let resultado;
 
     function generarCaptcha() {
