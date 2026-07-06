@@ -40,7 +40,7 @@
         .btn-login { width: 100%; height: 40px; background: linear-gradient(#ffffff, #d6d6d6); border: none; cursor: pointer; border-radius: 3px; font-size: 15px; font-weight: bold; }
 
         /* ==========================================================================
-           PANTALLA 2: DASHBOARD CLON EXACTO
+           PANTALLA 2: DASHBOARD CLON EXACTO INTERACTIVO
            ========================================================================== */
         #pantalla-dashboard { width: 100%; height: 100%; display: none; flex-direction: column; background: #fff; }
 
@@ -82,15 +82,32 @@
 
         .siae-cuerpo-sistema { display: flex; flex: 1; height: calc(100% - 110px); }
 
-        /* Menú lateral izquierdo plano minimalista con flechitas amarillas */
-        .siae-sidebar-izq { width: 170px; background: #e2e8f0; display: flex; flex-direction: column; padding-top: 15px; border-right: 1px solid #cbd5e1; background-image: linear-gradient(to bottom, #f1f5f9, #e2e8f0); }
-        .siae-item-menu { padding: 6px 15px; color: #1e293b; font-size: 11px; font-weight: normal; cursor: pointer; display: flex; align-items: center; gap: 6px; }
-        .siae-item-menu::before { content: "▶"; color: #d88900; font-size: 7px; }
-        .siae-item-menu:hover { color: #d88900; font-weight: bold; }
+        /* Menú lateral izquierdo estilo acordeón interactivo */
+        .siae-sidebar-izq { width: 195px; background: #e2e8f0; display: flex; flex-direction: column; padding-top: 15px; border-right: 1px solid #cbd5e1; background-image: linear-gradient(to bottom, #f1f5f9, #e2e8f0); overflow-y: auto; }
         
-        .btn-cerrar-siae { padding: 6px 15px; color: #1e293b; font-size: 11px; cursor: pointer; display: flex; align-items: center; gap: 6px; }
-        .btn-cerrar-siae::before { content: "▶"; color: #d88900; font-size: 7px; }
-        .btn-cerrar-siae:hover { color: #b91c1c; font-weight: bold; }
+        /* Contenedores de las opciones principales */
+        .menu-grupo { display: flex; flex-direction: column; }
+        
+        .siae-item-menu { padding: 6px 15px; color: #1e293b; font-size: 12px; font-weight: normal; cursor: pointer; display: flex; align-items: center; gap: 6px; user-select: none; }
+        
+        /* Flechita dinámica por defecto apuntando a la derecha (▶) */
+        .siae-item-menu::before { content: "▶"; color: #d88900; font-size: 7px; transition: transform 0.1s ease; }
+        
+        /* Clase cuando el menú está abierto para que apunte hacia abajo (▼) */
+        .menu-grupo.abierto .siae-item-menu::before { content: "▼"; color: #d88900; font-size: 7px; }
+        .menu-grupo.abierto .siae-item-menu { font-weight: bold; }
+
+        /* Bloque oculto de submenús */
+        .sub-menu-lista { display: none; flex-direction: column; padding-left: 28px; background: rgba(0,0,0,0.02); }
+        .menu-grupo.abierto .sub-menu-lista { display: flex; }
+
+        /* Elementos de los submenús */
+        .sub-item { padding: 4px 5px; color: #334155; font-size: 11px; cursor: pointer; }
+        .sub-item:hover { color: #d88900; font-weight: bold; }
+
+        /* Opciones planas sin submenú (Imprimir / Cerrar Sesión) */
+        .siae-item-plano { padding: 6px 15px; color: #1e293b; font-size: 12px; cursor: pointer; }
+        .siae-item-plano:hover { font-weight: bold; color: #b91c1c; }
 
         /* Área central con la textura gris original repetible */
         .siae-area-central { 
@@ -127,6 +144,7 @@
 
 <div class="contenedor-siae">
 
+    <!-- SECCIÓN 1: LOGIN -->
     <div id="pantalla-login">
         <div class="login-box">
             <h1>Bienvenido al SIAE</h1>
@@ -145,11 +163,14 @@
         </ul>
     </div>
 
+    <!-- SECCIÓN 2: INTERFAZ PRINCIPAL -->
     <div id="pantalla-dashboard">
         
         <header class="encabezado-siae-logos">
+            <!-- Logo UNAM Izquierdo -->
             <img src="unam.svg" alt="" class="logo-siae-svg">
             
+            <!-- Textos Oficiales Centrales -->
             <div class="siae-textos-cabecera">
                 <div class="linea-u">UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO</div>
                 <div class="linea-d">Dirección General de Administración Escolar</div>
@@ -157,6 +178,7 @@
                 <div class="linea-i">Sistema Integral de Administración Escolar</div>
             </div>
             
+            <!-- Bloque de Logos Derechos (DGAE + SIAE) -->
             <div class="bloque-logos-derecha">
                 <img src="dgae.svg" alt="" class="logo-siae-svg">
                 <img src="siae.svg" alt="" class="logo-siae-svg">
@@ -170,17 +192,55 @@
 
         <div class="siae-cuerpo-sistema">
             
+            <!-- Opciones del Menú Desplegable Tipo Acordeón -->
             <nav class="siae-sidebar-izq">
-                <div class="siae-item-menu">Registros Académicos</div>
-                <div class="siae-item-menu">Trámites Escolares</div>
-                <div class="siae-item-menu">Seguridad</div>
-                <div class="siae-item-menu">Elecciones</div>
-                <div class="siae-item-menu">Imprimir</div>
-                <div class="btn-cerrar-siae" onclick="regresarLogin()">Cerrar Sesión</div>
+                
+                <!-- Grupo 1: Registros Académicos -->
+                <div class="menu-grupo" onclick="toggleMenu(this)">
+                    <div class="siae-item-menu">Registros Académicos</div>
+                    <div class="sub-menu-lista">
+                        <div class="sub-item">Trayectoria Escolar</div>
+                    </div>
+                </div>
+
+                <!-- Grupo 2: Trámites Escolares -->
+                <div class="menu-grupo" onclick="toggleMenu(this)">
+                    <div class="siae-item-menu">Trámites Escolares</div>
+                    <div class="sub-menu-lista">
+                        <div class="sub-item">Consulta</div>
+                        <div class="sub-item">Solicitud</div>
+                    </div>
+                </div>
+
+                <!-- Grupo 3: Seguridad -->
+                <div class="menu-grupo" onclick="toggleMenu(this)">
+                    <div class="siae-item-menu">Seguridad</div>
+                    <div class="sub-menu-lista">
+                        <div class="sub-item">Cambio De NIP</div>
+                        <div class="sub-item">Cambio de Pregunta Secreta</div>
+                        <div class="sub-item">Datos de Contacto</div>
+                        <div class="sub-item">Cambio de E-mail</div>
+                        <div class="sub-item">CURP</div>
+                    </div>
+                </div>
+
+                <!-- Grupo 4: Elecciones -->
+                <div class="menu-grupo" onclick="toggleMenu(this)">
+                    <div class="siae-item-menu">Elecciones</div>
+                    <div class="sub-menu-lista">
+                        <div class="sub-item">Consulta</div>
+                    </div>
+                </div>
+
+                <!-- Opciones Planas Finales -->
+                <div class="siae-item-plano" style="padding-top: 8px;">Imprimir</div>
+                <div class="siae-item-plano" onclick="regresarLogin()">Cerrar Sesión</div>
             </nav>
 
+            <!-- Área con Textura y Cuadro de Aviso Real -->
             <main class="siae-area-central">
                 
+                <!-- Contenedor del Banner Real -->
                 <div class="banner-aviso-siae"></div>
 
             </main>
@@ -190,7 +250,7 @@
 
 </div>
 
-<script {content_id: "siae_script_logic_final"}>
+<script>
     let resultado;
 
     function generarCaptcha() {
@@ -213,10 +273,31 @@
     }
 
     function regresarLogin() {
+        // Cerrar todos los acordeones al salir
+        let grupos = document.querySelectorAll('.menu-grupo');
+        grupos.forEach(g => g.classList.remove('abierto'));
+        
         document.getElementById('pantalla-dashboard').style.display = 'none';
         document.getElementById('pantalla-login').style.display = 'flex';
         document.getElementById('captchaInput').value = "";
         generarCaptcha();
+    }
+
+    // Lógica para abrir/cerrar acordeones individuales
+    function toggleMenu(elemento) {
+        // Evita que el clic en un sub-elemento cierre el menú inmediatamente
+        if (event.target.classList.contains('sub-item')) return;
+
+        let estaAbierto = elemento.classList.contains('abierto');
+        
+        // Cierra todos los demás menús primero
+        let todosLosGrupos = document.querySelectorAll('.menu-grupo');
+        todosLosGrupos.forEach(grupo => grupo.classList.remove('abierto'));
+        
+        // Si no estaba abierto, lo abre
+        if (!estaAbierto) {
+            elemento.classList.add('abierto');
+        }
     }
 
     generarCaptcha();
