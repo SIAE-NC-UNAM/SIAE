@@ -7,7 +7,7 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, Helvetica, sans-serif; }
         
-        /* El cuerpo ahora lleva tu textura gris original para asegurar que NUNCA se vea blanco o liso abajo */
+        /* El cuerpo maneja la textura de grecas de fondo de manera infinita */
         body { 
             background-color: #f1f5f9; 
             background-image: url('1000140702.jpg'); 
@@ -19,7 +19,7 @@
             align-items: flex-start; 
         }
         
-        /* Contenedor principal sin límite de altura (height auto) para que se estire libremente */
+        /* Contenedor principal estirable sin topes fijos */
         .contenedor-siae { 
             width: 100%; 
             max-width: 1100px; 
@@ -33,39 +33,80 @@
         }
 
         /* ==========================================================================
-           PANTALLA 1: LOGIN (CON CUADROS FLOTANTES Y CAPTCHA REAL)
+           PANTALLA 1: LOGIN
            ========================================================================== */
-        #pantalla-login { width: 100%; height: 100vh; background: linear-gradient(140deg, #d88900 0%, #1b2e52 40%, #102a4e 100%); position: relative; overflow: hidden; display: flex; }
-        .bg-bubbles { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
-        .bg-bubbles li { position: absolute; list-style: none; display: block; width: 40px; height: 40px; background-color: rgba(255, 255, 255, 0.15); bottom: -160px; animation: square 25s infinite linear; }
-        .bg-bubbles li:nth-child(1) { left: 10%; }
-        .bg-bubbles li:nth-child(2) { left: 20%; width: 80px; height: 80px; animation-delay: 2s; animation-duration: 17s; }
-        .bg-bubbles li:nth-child(3) { left: 25%; animation-delay: 4s; }
-        .bg-bubbles li:nth-child(4) { left: 40%; width: 60px; height: 60px; animation-duration: 22s; }
-        .bg-bubbles li:nth-child(5) { left: 70%; }
-        .bg-bubbles li:nth-child(6) { left: 80%; width: 120px; height: 120px; animation-delay: 3s; }
-        .bg-bubbles li:nth-child(7) { left: 32%; width: 160px; height: 160px; animation-delay: 7s; }
-        .bg-bubbles li:nth-child(8) { left: 55%; width: 20px; height: 20px; animation-delay: 15s; }
-        .bg-bubbles li:nth-child(9) { left: 25%; width: 10px; height: 10px; animation-delay: 2s; }
-        .bg-bubbles li:nth-child(10) { left: 90%; width: 160px; height: 160px; animation-delay: 11s; }
-        @keyframes square { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(-700px) rotate(600deg); opacity: 0; } }
+        #pantalla-login { 
+            width: 100%; 
+            height: 100vh; 
+            background: #ffffff; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            position: relative;
+        }
 
-        .login-box { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 280px; text-align: center; z-index: 5; }
-        h1 { color: white; font-weight: 300; margin-bottom: 20px; font-size: 26px; }
-        .login-box input { width: 100%; height: 38px; margin-bottom: 10px; background: rgba(255, 255, 255, .15); border: 1px solid rgba(255, 255, 255, .4); color: white; text-align: center; border-radius: 3px; }
-        .login-box input::placeholder { color: #d9d9d9; }
-        .captcha { display: flex; gap: 8px; margin-bottom: 10px; }
-        .codigo { width: 50%; height: 38px; background: #ef9f1f; display: flex; justify-content: center; align-items: center; font-size: 22px; font-weight: bold; font-family: 'Times New Roman', serif; border-radius: 2px; color: #000; position: relative; }
-        .codigo::before { content: ""; position: absolute; width: 100%; height: 100%; background-image: linear-gradient(20deg, transparent 48%, rgba(0,0,0,0.3) 50%, transparent 52%), linear-gradient(-25deg, transparent 48%, rgba(0,0,0,0.3) 50%, transparent 52%); }
-        .captcha input { width: 50%; margin: 0; }
-        .btn-login { width: 100%; height: 40px; background: linear-gradient(#ffffff, #d6d6d6); border: none; cursor: pointer; border-radius: 3px; font-size: 15px; font-weight: bold; }
+        .franja-login-central {
+            width: 100%;
+            height: 320px;
+            background: linear-gradient(140deg, #d88900 0%, #1b2e52 45%, #102a4e 100%);
+            border-top: 4px solid #ef9f1f;
+            border-bottom: 4px solid #ef9f1f;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .btn-login-esquina {
+            position: absolute;
+            top: 15px;
+            width: 32px;
+            height: 32px;
+            background: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #102a4e;
+            font-size: 16px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            cursor: pointer;
+            user-select: none;
+        }
+        .btn-login-home { left: 20px; }
+        .btn-login-ayuda { right: 20px; }
+
+        .bg-bubbles { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; overflow: hidden; }
+        .bg-bubbles li { position: absolute; list-style: none; display: block; width: 25px; height: 25px; background-color: rgba(255, 255, 255, 0.08); bottom: -60px; animation: square 20s infinite linear; }
+        .bg-bubbles li:nth-child(1) { left: 10%; }
+        .bg-bubbles li:nth-child(2) { left: 20%; width: 50px; height: 50px; animation-delay: 2s; animation-duration: 14s; }
+        .bg-bubbles li:nth-child(3) { left: 35%; animation-delay: 4s; }
+        .bg-bubbles li:nth-child(4) { left: 50%; width: 40px; height: 40px; animation-duration: 18s; }
+        .bg-bubbles li:nth-child(5) { left: 70%; }
+        .bg-bubbles li:nth-child(6) { left: 85%; width: 60px; height: 60px; animation-delay: 3s; }
+        @keyframes square { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(-400px) rotate(600deg); opacity: 0; } }
+
+        .login-box { width: 320px; text-align: center; z-index: 5; padding: 10px; }
+        h1 { color: white; font-weight: 300; margin-bottom: 18px; font-size: 24px; letter-spacing: 0.5px; }
+        .login-box input { width: 100%; height: 36px; margin-bottom: 8px; background: rgba(255, 255, 255, .15); border: 1px solid rgba(255, 255, 255, .3); color: white; text-align: center; border-radius: 3px; font-size: 13px; }
+        .login-box input::placeholder { color: #cbd5e1; }
+        
+        .captcha { display: flex; gap: 8px; margin-bottom: 12px; }
+        .codigo { width: 45%; height: 36px; background: #ef9f1f; display: flex; justify-content: center; align-items: center; font-size: 20px; font-weight: bold; font-family: 'Times New Roman', serif; border-radius: 2px; color: #000; position: relative; user-select: none; }
+        .codigo::before { content: ""; position: absolute; width: 100%; height: 100%; background-image: linear-gradient(20deg, transparent 48%, rgba(0,0,0,0.2) 50%, transparent 52%), linear-gradient(-25deg, transparent 48%, rgba(0,0,0,0.2) 50%, transparent 52%); }
+        .captcha input { width: 55%; margin: 0; }
+        
+        .btn-login { width: 100%; height: 38px; background: linear-gradient(#ffffff, #e2e8f0); border: 1px solid #cbd5e1; cursor: pointer; border-radius: 3px; font-size: 14px; font-weight: normal; color: #334155; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
 
         /* ==========================================================================
            PANTALLA 2: DASHBOARD
            ========================================================================== */
         #pantalla-dashboard { width: 100%; display: none; flex-direction: column; background: transparent; flex: 1; }
 
-        /* Encabezado Principal */
+        /* Encabezado Principal Oficial */
         .encabezado-siae-logos {
             height: 85px;
             background: #001e3d; 
@@ -102,7 +143,7 @@
         .iconos-control { color: #cbd5e1; font-size: 11px; cursor: pointer; display: flex; gap: 10px; align-items: center; }
         .nombre-alumno-display { font-weight: normal; color: #fff; font-size: 11px; letter-spacing: 0.3px; }
 
-        /* Animación Corazón de Texto Puro */
+        /* Animación Corazón Unicode */
         @keyframes latidoColor {
             0% { color: #ef4444; transform: scale(1); }
             50% { color: #3b82f6; transform: scale(1.3); }
@@ -110,24 +151,47 @@
         }
         .corazon-animado { display: inline-block; font-size: 14px; animation: latidoColor 2s infinite ease-in-out; vertical-align: middle; line-height: 1; }
 
-        /* El cuerpo hereda min-height para estirarse junto con los menús */
         .siae-cuerpo-sistema { display: flex; flex: 1; min-height: calc(100vh - 110px); align-items: stretch; background: transparent; }
 
-        /* Menú lateral izquierdo alargado */
-        .siae-sidebar-izq { width: 170px; background: #e2e8f0; display: flex; flex-direction: column; padding-top: 15px; border-right: 1px solid #cbd5e1; background-image: linear-gradient(to bottom, #f1f5f9, #e2e8f0); flex-shrink: 0; }
-        .menu-grupo { display: flex; flex-direction: column; }
-        .siae-item-menu { padding: 6px 15px; color: #1e293b; font-size: 11px; font-weight: normal; cursor: pointer; display: flex; align-items: center; gap: 6px; user-select: none; }
+        /* NUEVO: Menú lateral izquierdo con el tapiz de grecas vertical de fondo */
+        .siae-sidebar-izq { 
+            width: 170px; 
+            background-color: #e2e8f0; 
+            background-image: url('1000140702.jpg'); 
+            background-repeat: repeat-y;
+            background-size: 100% auto;
+            display: flex; 
+            flex-direction: column; 
+            padding-top: 15px; 
+            border-right: 1px solid #cbd5e1; 
+            flex-shrink: 0;
+            position: relative;
+        }
+        
+        /* Logo del 475 aniversario colocado exactamente abajo a la izquierda */
+        .logo-aniversario-lateral {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 130px;
+            height: auto;
+            opacity: 0.85;
+            user-select: none;
+        }
+
+        .menu-grupo { display: flex; flex-direction: column; z-index: 2; }
+        .siae-item-menu { padding: 6px 15px; color: #000; font-size: 11px; font-weight: normal; cursor: pointer; display: flex; align-items: center; gap: 6px; user-select: none; }
         .siae-item-menu::before { content: "▶"; color: #d88900; font-size: 7px; }
         .menu-grupo.abierto .siae-item-menu::before { content: "▼"; color: #d88900; font-size: 7px; }
         .menu-grupo.abierto .siae-item-menu { font-weight: bold; }
-        .sub-menu-lista { display: none; flex-direction: column; padding-left: 28px; background: rgba(0,0,0,0.02); }
+        .sub-menu-lista { display: none; flex-direction: column; padding-left: 28px; background: rgba(255,255,255,0.4); }
         .menu-grupo.abierto .sub-menu-lista { display: flex; }
-        .sub-item { padding: 4px 5px; color: #334155; font-size: 11px; cursor: pointer; }
+        .sub-item { padding: 4px 5px; color: #1e293b; font-size: 11px; cursor: pointer; }
         .sub-item:hover { color: #d88900; font-weight: bold; }
-        .siae-item-plano { padding: 6px 15px; color: #1e293b; font-size: 11px; cursor: pointer; }
+        .siae-item-plano { padding: 6px 15px; color: #000; font-size: 11px; cursor: pointer; z-index: 2; }
         .siae-item-plano:hover { font-weight: bold; color: #b91c1c; }
 
-        /* Área central transparente para que no pinte parches blancos */
         .siae-area-central { 
             flex: 1; 
             background: transparent; 
@@ -137,85 +201,111 @@
             padding: 35px 20px 40px 20px; 
         }
 
-        /* Banner del Anuncio Inicial */
         .banner-aviso-siae { width: 460px; height: 230px; background-image: url('anuncio.jpg'); background-size: contain; background-repeat: no-repeat; background-position: center; border: 1px solid #94a3b8; box-shadow: 0 4px 14px rgba(0,0,0,0.18); border-radius: 2px; position: relative; z-index: 10; align-self: flex-start; cursor: pointer; }
 
         /* ==========================================================================
-           CONTENEDOR DE TRAYECTORIA CORREGIDO (ALTO REAL, SIN COMPRIMIR)
+           TRAYECTORIA ACADÉMICA MANUAL RECONSTRUIDA PÍXEL PERFECT
            ========================================================================== */
-        .seccion-trayectoria-img {
-            width: 800px;
-            height: 600px; /* Tamaño exacto para que no se vea amontonado */
-            background-image: url('trayectoria.jpg');
-            background-size: 100% 100%; /* Fuerza a acoplarse perfecto al tamaño real */
-            background-repeat: no-repeat;
-            background-position: top center;
-            position: relative;
+        .contenedor-trayectoria-manual { 
+            width: 100%; 
+            max-width: 820px; 
+            background: #ffffff; 
+            border: 1px solid #cbd5e1; 
+            padding: 25px 30px; 
             display: none; 
-            box-shadow: 0 4px 14px rgba(0,0,0,0.15);
-            border: 1px solid #cbd5e1;
+            flex-direction: column; 
+            box-shadow: 0 4px 14px rgba(0,0,0,0.08); 
             align-self: flex-start;
         }
+        
+        .sub-header-reporte { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; }
+        .mini-logos-izq { display: flex; align-items: center; gap: 12px; }
+        .mini-escudo-unam { height: 62px; width: auto; object-fit: contain; }
+        .texto-secretaria { font-size: 9.5px; color: #000; font-weight: bold; line-height: 1.35; text-align: left; }
+        .bloque-logos-internos { display: flex; align-items: center; gap: 12px; }
+        
+        .titulo-reporte-central { text-align: center; margin: 5px 0 10px 0; }
+        .titulo-reporte-central h2 { font-size: 18px; color: #000; font-weight: normal; letter-spacing: 0.3px; }
+        .fecha-reporte { font-size: 11px; text-align: right; color: #334155; margin-bottom: 12px; }
 
-        /* Posicionamiento milimétrico interactivo del selector y botón */
-        .zona-interactiva-consulta {
-            position: absolute;
-            bottom: 24px; 
-            left: 20px;
-            width: 760px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            padding-left: 5px;
-            gap: 12px;
-            background: transparent; 
-        }
-        .zona-interactiva-consulta select {
-            font-size: 11px;
-            padding: 1px 2px;
-            width: 148px;
-            cursor: pointer;
-        }
-        .zona-interactiva-consulta button {
-            font-size: 11px;
-            padding: 2px 10px;
-            cursor: pointer;
-            background: #f1f5f9;
-            border: 1px solid #94a3b8;
-            box-shadow: inset 0 1px 0 #fff;
-        }
-        .zona-interactiva-consulta button:active { background: #cbd5e1; }
+        .bloque-identificacion { display: flex; gap: 20px; align-items: flex-start; margin-bottom: 20px; position: relative; width: 100%; }
+        
+        /* Foto con borde e idéntica a la credencial */
+        .foto-perfil-siae { width: 95px; height: 120px; border: 1px solid #475569; object-fit: cover; background: #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        
+        .tabla-datos-alumno { border-collapse: collapse; margin-top: 5px; }
+        .tabla-datos-alumno td { border: 1px solid #000; padding: 7px 14px; font-size: 11px; }
+        .td-azul-siae { background: #001e3d; color: white; font-weight: bold; width: 85px; text-align: center; letter-spacing: 0.5px; }
+        .td-valor-alumno { background: #fff; width: 210px; font-weight: bold; color: #000; text-align: left; line-height: 1.4; }
+
+        /* Botones del IMSS y Aviso colocados en su bloque exacto */
+        .zona-botones-institucionales { position: absolute; right: 0; bottom: 0; display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+        .btn-aviso-rojo { background: #b91c1c; color: white; font-size: 9px; font-weight: bold; padding: 2px 8px; border-radius: 4px; border: none; margin-bottom: 2px; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+        .bloque-links-accion { display: flex; align-items: flex-end; gap: 15px; }
+        .btn-ecosistema { background: linear-gradient(to bottom, #1e40af, #1e3a8a); color: white; border: 1px solid #172554; border-radius: 4px 4px 0 0; padding: 5px 18px; font-size: 11px; font-weight: bold; cursor: pointer; box-shadow: 0 -2px 4px rgba(0,0,0,0.1); }
+        .logo-imss-siae { height: 38px; width: auto; object-fit: contain; cursor: pointer; }
+
+        .mega-tabla-historial { width: 100%; border-collapse: collapse; margin-top: 5px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .mega-tabla-historial th { background: #001e3d; color: white; border: 1px solid #000; padding: 7px 4px; font-size: 9.5px; font-weight: normal; text-align: center; line-height: 1.2; }
+        
+        .mega-tabla-historial th.art-22 { background: #c2410c; font-weight: bold; }
+        .mega-tabla-historial th.art-24 { background: #4b5563; font-weight: bold; }
+        .mega-tabla-historial th.art-21 { background: #0f172a; font-weight: bold; }
+
+        .fila-nivel-separador { background: #cbd5e1; text-align: left; font-size: 10px; font-weight: bold; color: #000; }
+        .fila-nivel-separador td { padding: 5px 8px; border: 1px solid #000; letter-spacing: 0.3px; }
+
+        .fila-datos-historial td { border: 1px solid #000; padding: 7px 4px; font-size: 11px; text-align: center; background: #fff; color: #000; }
+        .fila-datos-historial td.left-text { text-align: left; padding-left: 10px; font-weight: normal; }
+        .fila-datos-historial input[type="radio"] { cursor: pointer; transform: scale(1.1); }
+
+        .notas-pie-tabla { margin-top: 10px; font-size: 10px; color: #1e293b; line-height: 1.45; font-weight: normal; text-align: left; border-bottom: 1px dashed #cbd5e1; padding-bottom: 10px; }
+
+        .barra-consulta-footer { margin-top: 20px; background: #cbd5e1; border: 1px solid #000; padding: 8px 14px; display: flex; gap: 15px; align-items: center; }
+        .barra-consulta-footer select { font-size: 12px; padding: 2px 4px; width: 165px; cursor: pointer; }
+        .barra-consulta-footer button { font-size: 12px; padding: 3px 16px; cursor: pointer; background: #f1f5f9; border: 1px solid #94a3b8; box-shadow: inset 0 1px 0 #fff; color: #000; font-weight: normal; }
     </style>
 </head>
 <body>
 
 <div class="contenedor-siae">
+    <!-- PANTALLA 1: LOGIN -->
     <div id="pantalla-login">
-        <div class="login-box">
-            <h1>Bienvenido al SIAE</h1>
-            <input type="text" placeholder="Usuario">
-            <input type="password" placeholder="NIP">
-            <div class="captcha">
-                <div class="codigo" id="captchaCode"></div>
-                <input type="text" id="captchaInput" placeholder="Captcha">
+        <div class="franja-login-central">
+            <div class="btn-login-esquina btn-login-home">🏠</div>
+            <div class="btn-login-esquina btn-login-ayuda">?</div>
+
+            <div class="login-box">
+                <h1>Bienvenido al SIAE</h1>
+                <input type="text" placeholder="Usuario">
+                <input type="password" placeholder="NIP">
+                <div class="captcha">
+                    <div class="codigo" id="captchaCode"></div>
+                    <input type="text" id="captchaInput" placeholder="Captcha">
+                </div>
+                <button class="btn-login" onclick="validar()">Acceder</button>
             </div>
-            <button class="btn-login" onclick="validar()">Acceder</button>
+            <ul class="bg-bubbles"><li></li><li></li><li></li><li></li><li></li><li></li></ul>
         </div>
-        <ul class="bg-bubbles"><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
     </div>
 
+    <!-- PANTALLA 2: INTERFAZ PRINCIPAL -->
     <div id="pantalla-dashboard">
         <header class="encabezado-siae-logos">
-            <img src="unam.svg" alt="" class="logo-siae-svg">
+            <!-- Escudo UNAM Izquierdo Oficial -->
+            <img src="unam.svg" alt="UNAM" class="logo-siae-svg">
+            
             <div class="siae-textos-cabecera">
                 <div class="linea-u">UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO</div>
-                <div class="linea-d">DireCCIÓN General de Administración Escolar</div>
+                <div class="linea-d">Dirección General de Administración Escolar</div>
                 <div class="linea-s">Subdirección de Sistemas de Registro Escolar</div>
                 <div class="linea-i">Sistema Integral de Administración Escolar</div>
             </div>
+            
+            <!-- Bloque de Logos Derechos Oficiales -->
             <div class="bloque-logos-derecha">
-                <img src="dgae.svg" alt="" class="logo-siae-svg">
-                <img src="siae.svg" alt="" class="logo-siae-svg">
+                <img src="dgae.svg" alt="DGAE" class="logo-siae-svg">
+                <img src="siae.svg" alt="SIAE" class="logo-siae-svg">
             </div>
         </header>
 
@@ -246,20 +336,133 @@
                 </div>
                 <div class="siae-item-plano" style="padding-top: 8px;" onclick="mostrarInicio()">Imprimir</div>
                 <div class="siae-item-plano" onclick="regresarLogin()">Cerrar Sesión</div>
+                
+                <!-- Logo del Aniversario Oficial Abajo a la izquierda -->
+                <img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Logo_UNAM.svg" class="logo-aniversario-lateral" alt="UNAM">
             </nav>
             
             <main class="siae-area-central">
+                <!-- Banner de Anuncio Inicial -->
                 <div id="bloque-anuncio" class="banner-aviso-siae" onclick="mostrarInicio()"></div>
 
-                <div id="bloque-trayectoria" class="seccion-trayectoria-img">
+                <!-- MAQUETACIÓN MANUAL PERFECCIONADA DE LA TRAYECTORIA ACADÉMICA -->
+                <div id="bloque-trayectoria" class="contenedor-trayectoria-manual">
                     
-                    <div class="zona-interactiva-consulta">
+                    <div class="sub-header-reporte">
+                        <div class="mini-logos-izq">
+                            <!-- Escudo UNAM Interno -->
+                            <img src="unam.svg" class="mini-escudo-unam" alt="Escudo UNAM">
+                            <div class="texto-secretaria">
+                                UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO<br>
+                                SECRETARÍA GENERAL<br>
+                                DIRECCIÓN GENERAL DE ADMINISTRACIÓN ESCOLAR<br>
+                                SUBDIRECCIÓN DE SISTEMAS DE REGISTRO ESCOLAR<br>
+                                SISTEMA INTEGRAL DE ADMINISTRACIÓN ESCOLAR
+                            </div>
+                        </div>
+                        <div class="bloque-logos-internos">
+                            <img src="dgae.svg" style="height:44px;" alt="DGAE">
+                            <img src="siae.svg" style="height:44px;" alt="SIAE">
+                        </div>
+                    </div>
+
+                    <div class="titulo-reporte-central">
+                        <h2>Trayectoria Académica</h2>
+                    </div>
+                    <div class="fecha-reporte">10 Julio 2026</div>
+
+                    <div class="bloque-identificacion">
+                        <!-- Tu foto de perfil local real -->
+                        <img src="perfil.jpg" alt="Foto Perfil Alumno" class="foto-perfil-siae">
+                        
+                        <table class="tabla-datos-alumno">
+                            <tr>
+                                <td class="td-azul-siae">CUENTA</td>
+                                <td class="td-valor-alumno">321064624</td>
+                            </tr>
+                            <tr>
+                                <td class="td-azul-siae">NOMBRE</td>
+                                <td class="td-valor-alumno">LOPEZ ALEJANDREZ<br>SALVADOR</td>
+                            </tr>
+                        </table>
+
+                        <!-- Bloque derecho con Aviso Importante, Ecosistema e IMSS -->
+                        <div class="zona-botones-institucionales">
+                            <button class="btn-aviso-rojo">¡Aviso Importante!</button>
+                            <div class="bloque-links-accion">
+                                <button class="btn-ecosistema">Ecosistema UNAM ▲</button>
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/IMSS_Logo.svg" class="logo-imss-siae" alt="IMSS">
+                            </div>
+                        </div>
+                    </div>
+
+                    <table class="mega-tabla-historial">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>PLANTEL</th>
+                                <th>CARRERA</th>
+                                <th>TURNO</th>
+                                <th>PLAN DE<br>ESTUDIO</th>
+                                <th>NOMBRE DEL<br>PLAN DE ESTUDIO</th>
+                                <th>GENERACIÓN</th>
+                                <th>INGRESO</th>
+                                <th>TERMINO</th>
+                                <th class="art-22">APLICACION<br>ART. 22</th>
+                                <th class="art-24">NO<br>APLICA<br>ART. 24</th>
+                                <th class="art-21">APLICACION<br>ART. 21</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="fila-nivel-separador">
+                                <td colspan="12">NIVEL: BACHILLERATO</td>
+                            </tr>
+                            <tr class="fila-datos-historial">
+                                <td><input type="radio" id="radio-cch" name="nivel-sel" value="CCH BACHILLERATO"></td>
+                                <td>0034</td>
+                                <td></td>
+                                <td>03</td>
+                                <td>0835</td>
+                                <td class="left-text">CCH BACHILLERATO</td>
+                                <td>2021</td>
+                                <td>52</td>
+                                <td>34</td>
+                                <td>2026-1</td>
+                                <td>2027-1</td>
+                                <td>2024-1</td>
+                            </tr>
+                            <tr class="fila-nivel-separador">
+                                <td colspan="12">CARRERA: [117] - INGENIERÍA PETROLERA</td>
+                            </tr>
+                            <tr class="fila-datos-historial">
+                                <td><input type="radio" id="radio-lic" name="nivel-sel" value="INGENIERÍA PETROLERA" checked></td>
+                                <td>0011</td>
+                                <td>117</td>
+                                <td></td>
+                                <td>2229</td>
+                                <td class="left-text">ING PETROLERA</td>
+                                <td>2025</td>
+                                <td>54</td>
+                                <td></td>
+                                <td>2032-2</td>
+                                <td>2035-1</td>
+                                <td>2030-1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="notas-pie-tabla">
+                        INGRESO [52]: INGRESO A BACHILLERATO (ENP / CCH) (CONCURSO DE SELECCIÓN)<br>
+                        TÉRMINO [34]: CONCLUYÓ BACHILLERATO (Y REALIZÓ PASE REGLAMENTADO)<br>
+                        INGRESO [54]: INGRESO A LICENCIATURA (PASE REGLAMENTADO)
+                    </div>
+
+                    <div class="barra-consulta-footer">
                         <select id="selectorDocumento">
-                            <option>Historia Académica</option>
+                            <option value="Historia Académica">Historia Académica</option>
                         </select>
                         <button onclick="ejecutarConsulta()">Consultar</button>
                     </div>
-
                 </div>
             </main>
         </div>
@@ -268,26 +471,35 @@
 
 <script>
     let resultado;
+
     function generarCaptcha() {
         let n1 = Math.floor(Math.random() * 10) + 1;
         let n2 = Math.floor(Math.random() * 10) + 1;
         resultado = n1 + n2;
         document.getElementById('captchaCode').innerText = n1 + " + " + n2 + " =";
     }
+
     function validar() {
         let valor = document.getElementById('captchaInput').value;
         if(parseInt(valor) === resultado) {
             document.getElementById('pantalla-login').style.display = 'none';
             document.getElementById('pantalla-dashboard').style.display = 'flex';
             mostrarInicio();
-        } else { alert("Captcha incorrecto"); document.getElementById('captchaInput').value = ""; generarCaptcha(); }
+        } else {
+            alert("Captcha incorrecto");
+            document.getElementById('captchaInput').value = "";
+            generarCaptcha();
+        }
     }
+
     function regresarLogin() {
         document.querySelectorAll('.menu-grupo').forEach(g => g.classList.remove('abierto'));
         document.getElementById('pantalla-dashboard').style.display = 'none';
         document.getElementById('pantalla-login').style.display = 'flex';
-        document.getElementById('captchaInput').value = ""; generarCaptcha();
+        document.getElementById('captchaInput').value = "";
+        generarCaptcha();
     }
+
     function toggleMenu(el) {
         if (event.target.classList.contains('sub-item')) return;
         let abierto = el.classList.contains('abierto');
@@ -297,8 +509,9 @@
 
     function cargarTrayectoria() {
         document.getElementById('bloque-anuncio').style.display = 'none';
-        document.getElementById('bloque-trayectoria').style.display = 'block';
+        document.getElementById('bloque-trayectoria').style.display = 'flex';
     }
+
     function mostrarInicio() {
         document.getElementById('bloque-trayectoria').style.display = 'none';
         document.getElementById('bloque-anuncio').style.display = 'flex';
@@ -306,7 +519,8 @@
 
     function ejecutarConsulta() {
         let doc = document.getElementById('selectorDocumento').value;
-        alert("Consultando: " + doc);
+        let seleccion = document.querySelector('input[name="nivel-sel"]:checked').value;
+        alert("Consultando " + doc + " para el nivel:\n" + seleccion);
     }
 
     generarCaptcha();
