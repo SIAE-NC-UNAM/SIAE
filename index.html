@@ -7,7 +7,6 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, Helvetica, sans-serif; }
         
-        /* El cuerpo maneja la textura de grecas infinita para TODA la pantalla */
         body { 
             background-color: #f1f5f9; 
             background-image: url('1000140702.jpg'); 
@@ -19,7 +18,6 @@
             align-items: flex-start; 
         }
         
-        /* Quitamos el fondo blanco de aquí para que la textura pase limpio por detrás */
         .contenedor-siae { 
             width: 100%; 
             max-width: 1100px; 
@@ -49,23 +47,20 @@
         .login-box input::placeholder { color: #cbd5e1; }
         .captcha { display: flex; gap: 8px; margin-bottom: 12px; }
         .codigo { width: 45%; height: 36px; background: #ef9f1f; display: flex; justify-content: center; align-items: center; font-size: 20px; font-weight: bold; font-family: 'Times New Roman', serif; border-radius: 2px; color: #000; position: relative; user-select: none; }
-        .codigo::before { content: ""; position: absolute; width: 100%; height: 100%; background-image: linear-gradient(20deg, transparent 48%, rgba(0,0,0,0.2) 50%, transparent 52%), linear-gradient(-25deg, transparent 48%, rgba(0,0,0,0.2) 50%, transparent 52%); }
+        .codigo::before { content: ""; position: absolute; width: 100%; height: 100%; background-image: linear-gradient(20deg, transparent 48%, rgba(0,0,0,0.2) 50%, transparent 52%), linear-gradient(-25deg, transparent 48%, rgba(0,0,0,0.3) 50%, transparent 52%); }
         .btn-login { width: 100%; height: 38px; background: linear-gradient(#ffffff, #e2e8f0); border: 1px solid #cbd5e1; cursor: pointer; border-radius: 3px; font-size: 14px; font-weight: normal; color: #334155; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
 
         /* ==========================================================================
            PANTALLA 2: DASHBOARD
            ========================================================================== */
         #pantalla-dashboard { width: 100%; display: none; flex-direction: column; background: transparent; flex: 1; }
-
         .encabezado-siae-logos { height: 85px; background: #001e3d; display: flex; align-items: center; justify-content: space-between; padding: 0 25px; border-bottom: 3px solid #ef9f1f; flex-shrink: 0; }
         .logo-siae-svg { height: 58px; width: auto; object-fit: contain; }
-        
         .siae-textos-cabecera { text-align: center; color: white; flex: 1; padding: 0 20px; }
         .siae-textos-cabecera .linea-u { font-size: 11px; font-weight: bold; letter-spacing: 0.3px; }
         .siae-textos-cabecera .linea-d { font-size: 10px; color: #cbd5e1; margin-top: 2px; }
         .siae-textos-cabecera .linea-s { font-size: 9px; color: #94a3b8; margin-top: 1px; }
         .siae-textos-cabecera .linea-i { font-size: 12px; font-weight: bold; color: #ef9f1f; margin-top: 4px; }
-
         .bloque-logos-derecha { display: flex; align-items: center; gap: 15px; }
 
         .siae-barra-usuario { height: 25px; background: #0d2c54; border-top: 1px solid #ef9f1f; display: flex; align-items: center; padding: 0 25px; color: white; font-size: 11px; gap: 15px; flex-shrink: 0; }
@@ -76,29 +71,9 @@
         .corazon-animado { display: inline-block; font-size: 14px; animation: latidoColor 2s infinite ease-in-out; vertical-align: middle; line-height: 1; }
 
         .siae-cuerpo-sistema { display: flex; flex: 1; min-height: calc(100vh - 110px); align-items: stretch; background: transparent; }
-
-        /* Menú lateral izquierdo transparente para que se acople al fondo general */
-        .siae-sidebar-izq { 
-            width: 170px; 
-            background: rgba(226, 232, 240, 0.2); 
-            display: flex; 
-            flex-direction: column; 
-            padding-top: 15px; 
-            border-right: 1px solid #cbd5e1; 
-            flex-shrink: 0;
-            position: relative;
-        }
+        .siae-sidebar-izq { width: 170px; background: rgba(226, 232, 240, 0.2); display: flex; flex-direction: column; padding-top: 15px; border-right: 1px solid #cbd5e1; flex-shrink: 0; position: relative; }
         
-        .logo-aniversario-lateral {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 120px;
-            height: auto;
-            opacity: 0.9;
-        }
-
+        .wrapper-svg-unam-foot { width: 120px; display: flex; justify-content: center; position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); }
         .menu-grupo { display: flex; flex-direction: column; z-index: 2; }
         .siae-item-menu { padding: 6px 15px; color: #000; font-size: 11px; cursor: pointer; display: flex; align-items: center; gap: 6px; user-select: none; }
         .siae-item-menu::before { content: "▶"; color: #d88900; font-size: 7px; }
@@ -111,22 +86,11 @@
         .siae-item-plano { padding: 6px 15px; color: #000; font-size: 11px; cursor: pointer; z-index: 2; }
         .siae-item-plano:hover { font-weight: bold; color: #b91c1c; }
 
-        /* Centro totalmente transparente para que luzca homogéneo */
-        .siae-area-central { 
-            flex: 1; 
-            background: transparent; 
-            position: relative; 
-            display: flex; 
-            justify-content: center; 
-            padding: 35px 20px 40px 20px; 
-        }
-
+        .siae-area-central { flex: 1; background: transparent; position: relative; display: flex; justify-content: center; padding: 35px 20px 40px 20px; }
         .banner-aviso-siae { width: 460px; height: 230px; background-image: url('anuncio.jpg'); background-size: contain; background-repeat: no-repeat; background-position: center; border: 1px solid #94a3b8; box-shadow: 0 4px 14px rgba(0,0,0,0.18); border-radius: 2px; position: relative; z-index: 10; align-self: flex-start; cursor: pointer; }
 
-        /* ==========================================================================
-           TRAYECTORIA ACADÉMICA MANUAL PÍXEL PERFECT
-           ========================================================================== */
-        .contenedor-trayectoria-manual { 
+        /* Contenedor general compartido de los reportes oficiales */
+        .contenedor-reporte-blanco { 
             width: 100%; 
             max-width: 820px; 
             background: #ffffff; 
@@ -137,51 +101,40 @@
             box-shadow: 0 4px 14px rgba(0,0,0,0.08); 
             align-self: flex-start;
         }
-        
-        .sub-header-reporte { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; }
-        .mini-logos-izq { display: flex; align-items: center; gap: 12px; }
-        .mini-escudo-unam { height: 62px; width: auto; }
-        .texto-secretaria { font-size: 9.5px; color: #000; font-weight: bold; line-height: 1.35; text-align: left; }
-        .bloque-logos-internos { display: flex; align-items: center; gap: 12px; }
-        
-        .titulo-reporte-central { text-align: center; margin: 5px 0 10px 0; }
-        .titulo-reporte-central h2 { font-size: 18px; color: #000; font-weight: normal; letter-spacing: 0.3px; }
-        .fecha-reporte { font-size: 11px; text-align: right; color: #334155; margin-bottom: 12px; }
-
-        .bloque-identificacion { display: flex; gap: 20px; align-items: flex-start; margin-bottom: 20px; position: relative; width: 100%; }
-        .foto-perfil-siae { width: 95px; height: 120px; border: 1px solid #475569; object-fit: cover; background: #e2e8f0; }
-        
-        .tabla-datos-alumno { border-collapse: collapse; margin-top: 5px; }
-        .tabla-datos-alumno td { border: 1px solid #000; padding: 7px 14px; font-size: 11px; }
-        .td-azul-siae { background: #001e3d; color: white; font-weight: bold; width: 85px; text-align: center; }
-        .td-valor-alumno { background: #fff; width: 210px; font-weight: bold; color: #000; text-align: left; line-height: 1.4; }
 
         .zona-botones-institucionales { position: absolute; right: 0; bottom: 0; display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
         .btn-aviso-rojo { background: #b91c1c; color: white; font-size: 9px; font-weight: bold; padding: 2px 8px; border-radius: 4px; border: none; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
         .bloque-links-accion { display: flex; align-items: center; gap: 12px; }
         .btn-ecosistema { background: linear-gradient(to bottom, #1e40af, #1e3a8a); color: white; border: 1px solid #172554; border-radius: 4px 4px 0 0; padding: 5px 18px; font-size: 11px; font-weight: bold; cursor: pointer; }
-        
-        /* Contenedores para los SVG incrustados */
         .wrapper-svg-imss { width: 62px; height: 38px; display: flex; align-items: center; justify-content: center; }
-        .wrapper-svg-unam-foot { width: 120px; display: flex; justify-content: center; }
 
         .mega-tabla-historial { width: 100%; border-collapse: collapse; margin-top: 5px; }
         .mega-tabla-historial th { background: #001e3d; color: white; border: 1px solid #000; padding: 7px 4px; font-size: 9.5px; font-weight: normal; text-align: center; line-height: 1.2; }
         .mega-tabla-historial th.art-22 { background: #c2410c; font-weight: bold; }
         .mega-tabla-historial th.art-24 { background: #4b5563; font-weight: bold; }
         .mega-tabla-historial th.art-21 { background: #0f172a; font-weight: bold; }
-
+        
         .fila-nivel-separador { background: #cbd5e1; text-align: left; font-size: 10px; font-weight: bold; color: #000; }
         .fila-nivel-separador td { padding: 5px 8px; border: 1px solid #000; }
-
         .fila-datos-historial td { border: 1px solid #000; padding: 7px 4px; font-size: 11px; text-align: center; background: #fff; color: #000; }
         .fila-datos-historial td.left-text { text-align: left; padding-left: 10px; }
-        .fila-datos-historial input[type="radio"] { cursor: pointer; transform: scale(1.1); }
 
-        .notas-pie-tabla { margin-top: 10px; font-size: 10px; color: #1e293b; line-height: 1.45; border-bottom: 1px dashed #cbd5e1; padding-bottom: 10px; }
-        .barra-consulta-footer { margin-top: 20px; background: #cbd5e1; border: 1px solid #000; padding: 8px 14px; display: flex; gap: 15px; align-items: center; }
-        .barra-consulta-footer select { font-size: 12px; padding: 2px 4px; width: 165px; }
-        .barra-consulta-footer button { font-size: 12px; padding: 3px 16px; cursor: pointer; background: #f1f5f9; border: 1px solid #94a3b8; color: #000; }
+        /* ==========================================================================
+           ESTILOS EXCLUSIVOS DE LA HISTORIA ACADÉMICA MANUAL (CCH)
+           ========================================================================== */
+        .cabecera-resumen-creditos { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 10px; color: #000; }
+        .cabecera-resumen-creditos td { padding: 3px 6px; border: none; }
+        .text-bold { font-weight: bold; }
+        .tabla-resumen-interno { width: 100%; border-collapse: collapse; margin-top: 5px; }
+        .tabla-resumen-interno th { background: #cbd5e1; font-size: 9px; padding: 3px; font-weight: bold; border: 1px solid #475569; text-align: center; }
+        .tabla-resumen-interno td { border: 1px solid #475569; text-align: center; padding: 4px; font-size: 10px; }
+
+        .tabla-materias-cch { width: 100%; border-collapse: collapse; margin-top: 5px; }
+        .tabla-materias-cch th { background: #001e3d; color: white; border: 1px solid #000; padding: 5px 2px; font-size: 9px; text-align: center; font-weight: normal; }
+        .tabla-materias-cch td { border: 1px solid #cbd5e1; padding: 4px 2px; font-size: 10px; text-align: center; background: #fff; }
+        .tabla-materias-cch td.left-text { text-align: left; padding-left: 5px; }
+        .fila-semestre-header { background: #cbd5e1; font-weight: bold; font-size: 10px; text-align: center; color: #000; }
+        .fila-semestre-header td { border: 1px solid #000; padding: 3px; }
     </style>
 </head>
 <body>
@@ -206,7 +159,7 @@
         </div>
     </div>
 
-    <!-- PANTALLA 2: INTERFAZ PRINCIPAL -->
+    <!-- PANTALLA 2: DASHBOARD -->
     <div id="pantalla-dashboard">
         <header class="encabezado-siae-logos">
             <img src="unam.svg" alt="UNAM" class="logo-siae-svg">
@@ -237,20 +190,31 @@
                 </div>
                 <div class="menu-grupo" onclick="toggleMenu(this)">
                     <div class="siae-item-menu">Trámites Escolares</div>
-                    <div class="sub-menu-lista"><div class="sub-item">Consulta</div><div class="sub-item">Solicitud</div></div>
+                    <div class="sub-menu-lista">
+                        <div class="sub-item">Consulta</div>
+                        <div class="sub-item">Solicitud</div>
+                    </div>
                 </div>
+                <!-- MENÚS RESTAURADOS AQUÍ -->
                 <div class="menu-grupo" onclick="toggleMenu(this)">
                     <div class="siae-item-menu">Seguridad</div>
-                    <div class="sub-menu-lista"><div class="sub-item">Cambio De NIP</div><div class="sub-item">Cambio de Pregunta Secreta</div><div class="sub-item">Datos de Contacto</div><div class="sub-item">Cambio de E-mail</div><div class="sub-item">CURP</div></div>
+                    <div class="sub-menu-lista">
+                        <div class="sub-item">Cambio De NIP</div>
+                        <div class="sub-item">Cambio de Pregunta Secreta</div>
+                        <div class="sub-item">Datos de Contacto</div>
+                        <div class="sub-item">Cambio de E-mail</div>
+                        <div class="sub-item">CURP</div>
+                    </div>
                 </div>
                 <div class="menu-grupo" onclick="toggleMenu(this)">
                     <div class="siae-item-menu">Elecciones</div>
-                    <div class="sub-menu-lista"><div class="sub-item">Consulta</div></div>
+                    <div class="sub-menu-lista">
+                        <div class="sub-item">Consulta</div>
+                    </div>
                 </div>
                 <div class="siae-item-plano" style="padding-top: 8px;" onclick="mostrarInicio()">Imprimir</div>
                 <div class="siae-item-plano" onclick="regresarLogin()">Cerrar Sesión</div>
                 
-                <!-- NUEVO: SVG nativo del logo de la UNAM abajo a la izquierda para que nunca se rompa -->
                 <div class="wrapper-svg-unam-foot">
                     <svg viewBox="0 0 100 100" style="width:55px; height:55px; fill:#001e3d; opacity:0.8;">
                         <path d="M50 5C25.1 5 5 25.1 5 50s20.1 45 45 45 45-20.1 45-45S74.9 5 50 5zm0 82C29.6 87 13 70.4 13 50S29.6 13 50 13s37 16.6 37 37-16.6 37-37 37zm-8-56h16v6H42zm0 12h16v6H42zm0 12h16v6H42z"/>
@@ -261,8 +225,8 @@
             <main class="siae-area-central">
                 <div id="bloque-anuncio" class="banner-aviso-siae" onclick="mostrarInicio()"></div>
 
-                <!-- MAQUETACIÓN MANUAL DE LA TRAYECTORIA ACADÉMICA -->
-                <div id="bloque-trayectoria" class="contenedor-trayectoria-manual">
+                <!-- VISTA 1: TRAYECTORIA ACADÉMICA -->
+                <div id="bloque-trayectoria" class="contenedor-reporte-blanco">
                     <div class="sub-header-reporte">
                         <div class="mini-logos-izq">
                             <img src="unam.svg" class="mini-escudo-unam" alt="UNAM">
@@ -279,36 +243,21 @@
                             <img src="siae.svg" style="height:42px;" alt="SIAE">
                         </div>
                     </div>
-
-                    <div class="titulo-reporte-central">
-                        <h2>Trayectoria Académica</h2>
-                    </div>
-                    <div class="fecha-reporte">10 Julio 2026</div>
+                    <div class="titulo-reporte-central"><h2>Trayectoria Académica</h2></div>
+                    <div class="fecha-reporte">13 Julio 2026</div>
 
                     <div class="bloque-identificacion">
                         <img src="perfil.jpg" alt="Foto Perfil" class="foto-perfil-siae">
-                        
                         <table class="tabla-datos-alumno">
-                            <tr>
-                                <td class="td-azul-siae">CUENTA</td>
-                                <td class="td-valor-alumno">321064624</td>
-                            </tr>
-                            <tr>
-                                <td class="td-azul-siae">NOMBRE</td>
-                                <td class="td-valor-alumno">LOPEZ ALEJANDREZ<br>SALVADOR</td>
-                            </tr>
+                            <tr><td class="td-azul-siae">CUENTA</td><td class="td-valor-alumno">321064624</td></tr>
+                            <tr><td class="td-azul-siae">NOMBRE</td><td class="td-valor-alumno">LOPEZ ALEJANDREZ<br>SALVADOR</td></tr>
                         </table>
-
                         <div class="zona-botones-institucionales">
                             <button class="btn-aviso-rojo">¡Aviso Importante!</button>
                             <div class="bloque-links-accion">
                                 <button class="btn-ecosistema">Ecosistema UNAM ▲</button>
-                                <!-- NUEVO: SVG Nativo del IMSS incrustado en código para que cargue en cualquier celular -->
                                 <div class="wrapper-svg-imss">
-                                    <svg viewBox="0 0 100 60" style="width:100%; height:100%;">
-                                        <rect width="100" height="60" fill="#005A36" rx="3"/>
-                                        <text x="50" y="38" font-family="Arial, sans-serif" font-weight="bold" font-size="22" fill="#FFFFFF" text-anchor="middle">IMSS</text>
-                                    </svg>
+                                    <svg viewBox="0 0 100 60" style="width:100%; height:100%;"><rect width="100" height="60" fill="#005A36" rx="3"/><text x="50" y="38" font-family="Arial" font-weight="bold" font-size="22" fill="#FFFFFF" text-anchor="middle">IMSS</text></svg>
                                 </div>
                             </div>
                         </div>
@@ -317,71 +266,141 @@
                     <table class="mega-tabla-historial">
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th>PLANTEL</th>
-                                <th>CARRERA</th>
-                                <th>TURNO</th>
-                                <th>PLAN DE<br>ESTUDIO</th>
-                                <th>NOMBRE DEL<br>PLAN DE ESTUDIO</th>
-                                <th>GENERACIÓN</th>
-                                <th>INGRESO</th>
-                                <th>TERMINO</th>
-                                <th class="art-22">APLICACION<br>ART. 22</th>
-                                <th class="art-24">NO<br>APLICA<br>ART. 24</th>
-                                <th class="art-21">APLICACION<br>ART. 21</th>
+                                <th>#</th><th>PLANTEL</th><th>CARRERA</th><th>TURNO</th><th>PLAN DE<br>ESTUDIO</th><th>NOMBRE DEL PLAN DE ESTUDIO</th><th>GENERACIÓN</th><th>INGRESO</th><th>TERMINO</th><th class="art-22">ART. 22</th><th class="art-24">ART. 24</th><th class="art-21">ART. 21</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="fila-nivel-separador">
-                                <td colspan="12">NIVEL: BACHILLERATO</td>
-                            </tr>
+                            <tr class="fila-nivel-separador"><td colspan="12">NIVEL: BACHILLERATO</td></tr>
                             <tr class="fila-datos-historial">
-                                <td><input type="radio" id="radio-cch" name="nivel-sel" value="CCH BACHILLERATO"></td>
-                                <td>0034</td>
-                                <td></td>
-                                <td>03</td>
-                                <td>0835</td>
-                                <td class="left-text">CCH BACHILLERATO</td>
-                                <td>2021</td>
-                                <td>52</td>
-                                <td>34</td>
-                                <td>2026-1</td>
-                                <td>2027-1</td>
-                                <td>2024-1</td>
+                                <td><input type="radio" id="radio-cch" name="nivel-sel" value="cch"></td><td>0034</td><td></td><td>03</td><td>0835</td><td class="left-text">CCH BACHILLERATO</td><td>2021</td><td>52</td><td>34</td><td>2026-1</td><td>2027-1</td><td>2024-1</td>
                             </tr>
-                            <tr class="fila-nivel-separador">
-                                <td colspan="12">CARRERA: [117] - INGENIERÍA PETROLERA</td>
-                            </tr>
+                            <tr class="fila-nivel-separador"><td colspan="12">CARRERA: [117] - INGENIERÍA PETROLERA</td></tr>
                             <tr class="fila-datos-historial">
-                                <td><input type="radio" id="radio-lic" name="nivel-sel" value="INGENIERÍA PETROLERA" checked></td>
-                                <td>0011</td>
-                                <td>117</td>
-                                <td></td>
-                                <td>2229</td>
-                                <td class="left-text">ING PETROLERA</td>
-                                <td>2025</td>
-                                <td>54</td>
-                                <td></td>
-                                <td>2032-2</td>
-                                <td>2035-1</td>
-                                <td>2030-1</td>
+                                <td><input type="radio" id="radio-lic" name="nivel-sel" value="lic" checked></td><td>0011</td><td>117</td><td></td><td>2229</td><td class="left-text">ING PETROLERA</td><td>2025</td><td>54</td><td></td><td>2032-2</td><td>2035-1</td><td>2030-1</td>
                             </tr>
                         </tbody>
                     </table>
-
                     <div class="notas-pie-tabla">
-                        INGRESO [52]: INGRESO A BACHILLERATO (ENP / CCH) (CONCURSO DE SELECCIÓN)<br>
-                        TÉRMINO [34]: CONCLUYÓ BACHILLERATO (Y REALIZÓ PASE REGLAMENTADO)<br>
-                        INGRESO [54]: INGRESO A LICENCIATURA (PASE REGLAMENTADO)
+                        INGRESO [52]: INGRESO A BACHILLERATO (PASE REGLAMENTADO)<br>INGRESO [54]: INGRESO A LICENCIATURA
                     </div>
-
                     <div class="barra-consulta-footer">
-                        <select id="selectorDocumento">
-                            <option value="Historia Académica">Historia Académica</option>
-                        </select>
+                        <select id="selectorDocumento"><option value="Historia Académica">Historia Académica</option></select>
                         <button onclick="ejecutarConsulta()">Consultar</button>
                     </div>
                 </div>
+
+                <!-- VISTA 2: MEGA TABLA MANUAL DE HISTORIA ACADÉMICA (CCH) -->
+                <div id="bloque-historia-cch" class="contenedor-reporte-blanco">
+                    <div class="sub-header-reporte">
+                        <div class="mini-logos-izq">
+                            <img src="unam.svg" class="mini-escudo-unam" alt="UNAM">
+                            <div class="texto-secretaria">
+                                UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO<br>SECRETARÍA GENERAL<br>DIRECCIÓN GENERAL DE ADMINISTRACIÓN ESCOLAR
+                            </div>
+                        </div>
+                        <div class="bloque-logos-internos">
+                            <img src="dgae.svg" style="height:42px;" alt="DGAE">
+                            <img src="siae.svg" style="height:42px;" alt="SIAE">
+                        </div>
+                    </div>
+
+                    <div class="titulo-reporte-central">
+                        <h2>Historia Académica</h2>
+                        <span style="font-size:11px; color:#475569;">(Documento no Oficial)</span>
+                    </div>
+                    <div class="fecha-reporte">13 Julio 2026</div>
+
+                    <table class="cabecera-resumen-creditos">
+                        <tr>
+                            <td><span class="text-bold">NÚMERO DE CUENTA:</span> 321064624</td>
+                            <td><span class="text-bold">NOMBRE:</span> LOPEZ ALEJANDREZ SALVADOR</td>
+                            <td><span class="text-bold">AÑO DE INGRESO:</span> 2021</td>
+                        </tr>
+                        <tr>
+                            <td><span class="text-bold">PLANTEL:</span> 0034 C.C.H. PLANTEL ORIENTE</td>
+                            <td colspan="2"><span class="text-bold">CARRERA:</span> 502 PLAN DE ESTUDIOS: 0835 - CCH BACHILLERATO</td>
+                        </tr>
+                    </table>
+
+                    <table class="tabla-resumen-interno" style="margin-bottom: 20px;">
+                        <thead>
+                            <tr><th colspan="4">AVANCE DE CRÉDITOS</th><th colspan="3">ASIGNATURAS</th><th rowspan="2">PROMEDIO<br>8.05</th></tr>
+                            <tr><th>OBLIGATORIOS</th><th>332</th><th>de 332</th><th>100.00 %</th><th>APROBADAS:</th><th>37</th><th>TOTAL:</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>OPTATIVOS</td><td>0</td><td>de 0</td><td>0.00 %</td><td>NO APROBADAS:</td><td>0</td><td>37</td><td></td></tr>
+                        </tbody>
+                    </table>
+
+                    <table class="tabla-materias-cch">
+                        <thead>
+                            <tr>
+                                <th>CLAVE PLANTEL</th><th>CLAVE ASIGNATURA</th><th>CRÉDITOS</th><th>NOMBRE DE LA ASIGNATURA</th><th>CALIFICACIÓN</th><th>TIPO DE EXAMEN</th><th>PERIODO</th><th>FOLIO ACTA</th><th>GRUPO</th><th>ORD</th><th>EXT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- PRIMER SEMESTRE -->
+                            <tr class="fila-semestre-header"><td colspan="11">PRIMER SEMESTRE</td></tr>
+                            <tr><td>0034</td><td>1101</td><td>10 OBL</td><td class="left-text">MATEMÁTICAS I (ALGEB-GEOM)</td><td>7</td><td>EXT</td><td>2021-2</td><td>3784836</td><td>EC54</td><td>1</td><td>1</td></tr>
+                            <tr><td>0034</td><td>1102</td><td>08 OBL</td><td class="left-text">TALLER DE CÓMPUTO</td><td>10</td><td>ORD</td><td>2021-1</td><td>3720616</td><td>145B</td><td>1</td><td></td></tr>
+                            <tr><td>0034</td><td>1103</td><td>10 OBL</td><td class="left-text">QUÍMICA I</td><td>8</td><td>EXT</td><td>2021-2</td><td>3784974</td><td>EC73</td><td>1</td><td>1</td></tr>
+                            <tr><td>0034</td><td>1104</td><td>08 OBL</td><td class="left-text">HIST.UNIV.MODERNA Y CONTEM I</td><td>10</td><td>ORD</td><td>2021-1</td><td>3718083</td><td>0145</td><td>1</td><td></td></tr>
+                            <tr><td>0034</td><td>1105</td><td>12 OBL</td><td class="left-text">TALL.LECT.REDAC.INIC.DOC. I</td><td>6</td><td>ORD</td><td>2021-1</td><td>3718086</td><td>0145</td><td>1</td><td></td></tr>
+                            <tr><td>0034</td><td>1107</td><td>08 OBL</td><td class="left-text">INGLES I</td><td>6</td><td>EXT</td><td>2021-2</td><td>3784943</td><td>EC72</td><td>1</td><td>1</td></tr>
+
+                            <!-- SEGUNDO SEMESTRE -->
+                            <tr class="fila-semestre-header"><td colspan="11">SEGUNDO SEMESTRE</td></tr>
+                            <tr><td>0034</td><td>1201</td><td>10 OBL</td><td class="left-text">MATEMÁTICAS II (ALGEB-GEOM)</td><td>7</td><td>EXT</td><td>2023-1</td><td>4219357</td><td>EA53</td><td>1</td><td>3</td></tr>
+                            <tr><td>0034</td><td>1203</td><td>10 OBL</td><td class="left-text">QUÍMICA II</td><td>7</td><td>EXT</td><td>2024-1</td><td>4522259</td><td>EM13</td><td>1</td><td>3</td></tr>
+                            <tr><td>0034</td><td>1204</td><td>08 OBL</td><td class="left-text">HIST.UNIV.MODERNA Y CONTEM II</td><td>10</td><td>ORD</td><td>2021-2</td><td>3833751</td><td>0245</td><td>1</td><td></td></tr>
+                            <tr><td>0034</td><td>1205</td><td>12 OBL</td><td class="left-text">TALL.LECT.REDAC.INIC.DOC. II</td><td>6</td><td>EXT</td><td>2022-1</td><td>3934501</td><td>EA71</td><td>1</td><td>1</td></tr>
+                            <tr><td>0034</td><td>1207</td><td>08 OBL</td><td class="left-text">INGLES II</td><td>9</td><td>EXT</td><td>2024-1</td><td>R8238206</td><td>EM12</td><td>1</td><td>2</td></tr>
+
+                            <!-- TERCER SEMESTRE -->
+                            <tr class="fila-semestre-header"><td colspan="11">TERCER SEMESTRE</td></tr>
+                            <tr><td>0034</td><td>1301</td><td>10 OBL</td><td class="left-text">MATEMÁTICAS III (ALGEB-GEOM)</td><td>9</td><td>ORD</td><td>2022-1</td><td>3896172</td><td>0383</td><td>2</td><td></td></tr>
+                            <tr><td>0034</td><td>1302</td><td>10 OBL</td><td class="left-text">FÍSICA I</td><td>10</td><td>ORD</td><td>2024-1</td><td>4586188</td><td>0385</td><td>2</td><td>1</td></tr>
+                            <tr><td>0034</td><td>1303</td><td>10 OBL</td><td class="left-text">BIOLOGÍA I</td><td>8</td><td>ORD</td><td>2022-1</td><td>3921696</td><td>355A</td><td>1</td><td>1</td></tr>
+                            <tr><td>0034</td><td>1304</td><td>08 OBL</td><td class="left-text">HISTORIA DE MÉXICO I</td><td>7</td><td>EXT</td><td>2023-1</td><td>4219483</td><td>EA72</td><td>1</td><td>1</td></tr>
+                            <tr><td>0034</td><td>1305</td><td>12 OBL</td><td class="left-text">TALL.LECT.REDAC.INIC.DOC. III</td><td>6</td><td>EXT</td><td>2023-1</td><td>4224434</td><td>EB71</td><td>1</td><td>1</td></tr>
+                            <tr><td>0034</td><td>1307</td><td>08 OBL</td><td class="left-text">INGLES III</td><td>10</td><td>EXT</td><td>2023-2</td><td>4487954</td><td>EL01</td><td>1</td><td>2</td></tr>
+
+                            <!-- CUARTO SEMESTRE -->
+                            <tr class="fila-semestre-header"><td colspan="11">CUARTO SEMESTRE</td></tr>
+                            <tr><td>0034</td><td>1401</td><td>10 OBL</td><td class="left-text">MATEMÁTICAS IV (ALGEB-GEOM)</td><td>8</td><td>ORD</td><td>2024-2</td><td>4672587</td><td>0483</td><td>2</td><td></td></tr>
+                            <tr><td>0034</td><td>1402</td><td>10 OBL</td><td class="left-text">FÍSICA II</td><td>10</td><td>ORD</td><td>2024-2</td><td>4672602</td><td>0485</td><td>2</td><td>2</td></tr>
+                            <tr><td>0034</td><td>1403</td><td>10 OBL</td><td class="left-text">BIOLOGÍA II</td><td>10</td><td>EXT</td><td>2023-2</td><td>4487978</td><td>EL02</td><td>1</td><td>2</td></tr>
+                            <tr><td>0034</td><td>1404</td><td>08 OBL</td><td class="left-text">HISTORIA DE MÉXICO II</td><td>6</td><td>EXT</td><td>2023-2</td><td>4338479</td><td>EC73</td><td>1</td><td>2</td></tr>
+                            <tr><td>0034</td><td>1405</td><td>12 OBL</td><td class="left-text">TALL.LECT.REDAC.INIC.DOC. IV</td><td>6</td><td>EXT</td><td>2023-2</td><td>4338480</td><td>EC73</td><td>1</td><td>1</td></tr>
+                            <tr><td>0034</td><td>1407</td><td>08 OBL</td><td class="left-text">INGLES IV</td><td>8</td><td>EXT</td><td>2024-2</td><td>4626541</td><td>ES12</td><td>1</td><td>1</td></tr>
+
+                            <!-- QUINTO SEMESTRE -->
+                            <tr class="fila-semestre-header"><td colspan="11">QUINTO SEMESTRE</td></tr>
+                            <tr><td>0034</td><td>1501</td><td>08 OBL</td><td class="left-text">CÁLCULO INTEGRAL Y DIFER. I</td><td>8</td><td>ORD</td><td>2024-1</td><td>4587463</td><td>0707</td><td>2</td><td></td></tr>
+                            <tr><td>0034</td><td>1502</td><td>08 OBL</td><td class="left-text">FILOSOFÍA I</td><td>9</td><td>ORD</td><td>2023-2</td><td>4295693</td><td>0585</td><td>1</td><td></td></tr>
+                            <tr><td>0034</td><td>1504</td><td>08 OBL</td><td class="left-text">CIBERNÉTICA Y COMPUTACIÓN I</td><td>9</td><td>ORD</td><td>2024-1</td><td>4586262</td><td>0502</td><td>2</td><td></td></tr>
+                            <tr><td>0034</td><td>1506</td><td>08 OBL</td><td class="left-text">FÍSICA III</td><td>10</td><td>ORD</td><td>2024-1</td><td>4586428</td><td>0506</td><td>2</td><td></td></tr>
+                            <tr><td>0034</td><td>1509</td><td>08 OBL</td><td class="left-text">ADMINISTRACIÓN I</td><td>9</td><td>ORD</td><td>2024-1</td><td>4586234</td><td>0501</td><td>2</td><td></td></tr>
+                            <tr><td>0034</td><td>1514</td><td>08 OBL</td><td class="left-text">ECONOMÍA I</td><td>8</td><td>ORD</td><td>2024-1</td><td>4586359</td><td>0504</td><td>2</td><td></td></tr>
+                            <tr><td>0034</td><td>1520</td><td>08 OBL</td><td class="left-text">LECTURA ANÁLISIS TEXT. LITER. I</td><td>6</td><td>ORD</td><td>2023-1</td><td>4295388</td><td>0554</td><td>1</td><td></td></tr>
+
+                            <!-- SEXTO SEMESTRE -->
+                            <tr class="fila-semestre-header"><td colspan="11">SEXTO SEMESTRE</td></tr>
+                            <tr><td>0034</td><td>1601</td><td>08 OBL</td><td class="left-text">CÁLCULO INTEGRAL Y DIFER. II</td><td>6</td><td>ORD</td><td>2024-2</td><td>4673923</td><td>0807</td><td>2</td><td></td></tr>
+                            <tr><td>0034</td><td>1602</td><td>08 OBL</td><td class="left-text">FILOSOFÍA II</td><td>10</td><td>ORD</td><td>2024-2</td><td>4391786</td><td>0685</td><td>1</td><td></td></tr>
+                            <tr><td>0034</td><td>1604</td><td>08 OBL</td><td class="left-text">CIBERNÉTICA Y COMPUTACIÓN II</td><td>9</td><td>ORD</td><td>2024-2</td><td>4672664</td><td>0602</td><td>2</td><td></td></tr>
+                            <tr><td>0034</td><td>1606</td><td>08 OBL</td><td class="left-text">FÍSICA IV</td><td>9</td><td>ORD</td><td>2024-2</td><td>4672833</td><td>0606</td><td>2</td><td></td></tr>
+                            <tr><td>0034</td><td>1609</td><td>08 OBL</td><td class="left-text">ADMINISTRACIÓN II</td><td>7</td><td>ORD</td><td>2024-2</td><td>4672632</td><td>0601</td><td>2</td><td></td></tr>
+                            <tr><td>0034</td><td>1614</td><td>08 OBL</td><td class="left-text">ECONOMÍA II</td><td>8</td><td>ORD</td><td>2024-2</td><td>R8245859</td><td>0604</td><td>2</td><td></td></tr>
+                            <tr><td>0034</td><td>1620</td><td>08 OBL</td><td class="left-text">LECTURA ANÁLISIS TEXT. LITER. II</td><td>6</td><td>ORD</td><td>2024-2</td><td>4391463</td><td>0654</td><td>1</td><td></td></tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="notas-pie-tabla">
+                        TÉRMINO [34]: CONCLUYÓ BACHILLERATO (Y REALIZÓ PASE REGLAMENTADO)
+                    </div>
+                </div>
+
             </main>
         </div>
     </div>
@@ -417,16 +436,22 @@
     }
     function cargarTrayectoria() {
         document.getElementById('bloque-anuncio').style.display = 'none';
+        document.getElementById('bloque-historia-cch').style.display = 'none';
         document.getElementById('bloque-trayectoria').style.display = 'flex';
     }
     function mostrarInicio() {
         document.getElementById('bloque-trayectoria').style.display = 'none';
+        document.getElementById('bloque-historia-cch').style.display = 'none';
         document.getElementById('bloque-anuncio').style.display = 'flex';
     }
     function ejecutarConsulta() {
-        let doc = document.getElementById('selectorDocumento').value;
         let seleccion = document.querySelector('input[name="nivel-sel"]:checked').value;
-        alert("Consultando " + doc + " para:\n" + seleccion);
+        if (seleccion === "cch") {
+            document.getElementById('bloque-trayectoria').style.display = 'none';
+            document.getElementById('bloque-historia-cch').style.display = 'flex';
+        } else {
+            alert("Consultando Historia Académica para Ingeniería Petrolera.\n¡Sección interactiva!");
+        }
     }
     generarCaptcha();
 </script>
