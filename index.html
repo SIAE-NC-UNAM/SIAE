@@ -31,7 +31,7 @@
         }
 
         /* ==========================================================================
-           PANTALLA 1: LOGIN
+           PANTALLA 1: LOGIN (ESTILO ORIGINAL CON FRANJA CENTRAL)
            ========================================================================== */
         #pantalla-login { width: 100%; height: 100vh; background: #ffffff; display: flex; align-items: center; justify-content: center; position: relative; }
         .franja-login-central { width: 100%; height: 320px; background: linear-gradient(140deg, #d88900 0%, #1b2e52 45%, #102a4e 100%); border-top: 4px solid #ef9f1f; border-bottom: 4px solid #ef9f1f; position: relative; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
@@ -47,11 +47,11 @@
         .login-box input::placeholder { color: #cbd5e1; }
         .captcha { display: flex; gap: 8px; margin-bottom: 12px; }
         .codigo { width: 45%; height: 36px; background: #ef9f1f; display: flex; justify-content: center; align-items: center; font-size: 20px; font-weight: bold; font-family: 'Times New Roman', serif; border-radius: 2px; color: #000; position: relative; user-select: none; }
-        .codigo::before { content: ""; position: absolute; width: 100%; height: 100%; background-image: linear-gradient(20deg, transparent 48%, rgba(0,0,0,0.2) 50%, transparent 52%), linear-gradient(-25deg, transparent 48%, rgba(0,0,0,0.2) 50%, transparent 52%); }
+        .codigo::before { content: ""; position: absolute; width: 100%; height: 100%; background-image: linear-gradient(20deg, transparent 48%, rgba(0,0,0,0.2) 50%, transparent 52%), linear-gradient(-25deg, transparent 48%, rgba(0,0,0,0.3) 50%, transparent 52%); }
         .btn-login { width: 100%; height: 38px; background: linear-gradient(#ffffff, #e2e8f0); border: 1px solid #cbd5e1; cursor: pointer; border-radius: 3px; font-size: 14px; font-weight: normal; color: #334155; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
 
         /* ==========================================================================
-           PANTALLA 2: DASHBOARD
+           PANTALLA 2: DASHBOARD GENERAL
            ========================================================================== */
         #pantalla-dashboard { width: 100%; display: none; flex-direction: column; background: transparent; flex: 1; }
         .encabezado-siae-logos { height: 85px; background: #001e3d; display: flex; align-items: center; justify-content: space-between; padding: 0 25px; border-bottom: 3px solid #ef9f1f; flex-shrink: 0; }
@@ -89,13 +89,13 @@
         .siae-area-central { flex: 1; background: transparent; position: relative; display: flex; justify-content: center; padding: 35px 20px 40px 20px; }
         .banner-aviso-siae { width: 460px; height: 230px; background-image: url('anuncio.jpg'); background-size: contain; background-repeat: no-repeat; background-position: center; border: 1px solid #94a3b8; box-shadow: 0 4px 14px rgba(0,0,0,0.18); border-radius: 2px; position: relative; z-index: 10; align-self: flex-start; cursor: pointer; }
 
-        /* Contenedor general compartido de los reportes oficiales */
+        /* Contenedor general de reportes con bordes y paddings estilo UNAM clásico */
         .contenedor-reporte-blanco { 
             width: 100%; 
             max-width: 820px; 
             background: #ffffff; 
-            border: 1px solid #cbd5e1; 
-            padding: 25px 30px; 
+            border: 1px solid #999999; 
+            padding: 15px 20px; 
             display: none; 
             flex-direction: column; 
             box-shadow: 0 4px 14px rgba(0,0,0,0.08); 
@@ -105,7 +105,7 @@
         .sub-header-reporte { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; }
         .mini-logos-izq { display: flex; align-items: center; gap: 12px; }
         
-        /* FIJADO: Candado para el tamaño del Escudo UNAM Interno */
+        /* Candado estricto para el escudo superior interno */
         .mini-escudo-unam { 
             width: auto !important;
             height: 62px !important; 
@@ -123,7 +123,7 @@
 
         .bloque-identificacion { display: flex; gap: 20px; align-items: flex-start; margin-bottom: 20px; position: relative; width: 100%; }
         
-        /* FIJADO: Candado para el tamaño de tu foto */
+        /* Candado estricto para tu foto de perfil */
         .foto-perfil-siae { 
             width: 95px !important; 
             height: 120px !important; 
@@ -148,36 +148,67 @@
         .btn-ecosistema { background: linear-gradient(to bottom, #1e40af, #1e3a8a); color: white; border: 1px solid #172554; border-radius: 4px 4px 0 0; padding: 5px 18px; font-size: 11px; font-weight: bold; cursor: pointer; }
         .wrapper-svg-imss { width: 62px; height: 38px; display: flex; align-items: center; justify-content: center; }
 
+        /* ==========================================================================
+           RECONSTRUCCIÓN DE TABLAS: ESTILO CLÁSICO GRIS DELGADO
+           ========================================================================== */
         .mega-tabla-historial { width: 100%; border-collapse: collapse; margin-top: 5px; }
-        .mega-tabla-historial th { background: #001e3d; color: white; border: 1px solid #000; padding: 7px 4px; font-size: 9.5px; font-weight: normal; text-align: center; line-height: 1.2; }
+        .mega-tabla-historial th { background: #001e3d; color: white; border: 1px solid #7f7f7f; padding: 7px 4px; font-size: 9.5px; font-weight: normal; text-align: center; line-height: 1.2; }
         .mega-tabla-historial th.art-22 { background: #c2410c; font-weight: bold; }
         .mega-tabla-historial th.art-24 { background: #4b5563; font-weight: bold; }
         .mega-tabla-historial th.art-21 { background: #0f172a; font-weight: bold; }
         
         .fila-nivel-separador { background: #cbd5e1; text-align: left; font-size: 10px; font-weight: bold; color: #000; }
-        .fila-nivel-separador td { padding: 5px 8px; border: 1px solid #000; }
-        .fila-datos-historial td { border: 1px solid #000; padding: 7px 4px; font-size: 11px; text-align: center; background: #fff; color: #000; }
+        .fila-nivel-separador td { padding: 5px 8px; border: 1px solid #7f7f7f; }
+        .fila-datos-historial td { border: 1px solid #7f7f7f; padding: 7px 4px; font-size: 11px; text-align: center; background: #fff; color: #000; }
         .fila-datos-historial td.left-text { text-align: left; padding-left: 10px; }
         .fila-datos-historial input[type="radio"] { cursor: pointer; transform: scale(1.1); }
 
-        /* ==========================================================================
-           ESTILOS EXCLUSIVOS DE LA HISTORIA ACADÉMICA MANUAL (CCH)
-           ========================================================================== */
-        .cabecera-resumen-creditos { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 10px; color: #000; }
-        .cabecera-resumen-creditos td { padding: 3px 6px; border: none; }
+        /* Estilos específicos de la Cabecera de la Historia Académica */
+        .cabecera-resumen-creditos { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin: 10px 0; 
+            font-size: 10px; 
+            color: #000;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .cabecera-resumen-creditos td { padding: 2px 4px; }
         .text-bold { font-weight: bold; }
-        .tabla-resumen-interno { width: 100%; border-collapse: collapse; margin-top: 5px; }
-        .tabla-resumen-interno th { background: #cbd5e1; font-size: 9px; padding: 3px; font-weight: bold; border: 1px solid #475569; text-align: center; }
-        .tabla-resumen-interno td { border: 1px solid #475569; text-align: center; padding: 4px; font-size: 10px; }
 
-        .tabla-materias-cch { width: 100%; border-collapse: collapse; margin-top: 5px; }
-        .tabla-materias-cch th { background: #001e3d; color: white; border: 1px solid #000; padding: 5px 2px; font-size: 9px; text-align: center; font-weight: normal; }
-        .tabla-materias-cch td { border: 1px solid #cbd5e1; padding: 4px 2px; font-size: 10px; text-align: center; background: #fff; }
-        .tabla-materias-cch td.left-text { text-align: left; padding-left: 5px; }
-        .fila-semestre-header { background: #cbd5e1; font-weight: bold; font-size: 10px; text-align: center; color: #000; }
-        .fila-semestre-header td { border: 1px solid #000; padding: 3px; }
-        .notas-pie-tabla { margin-top: 10px; font-size: 10px; color: #000; border-bottom: 1px dashed #cbd5e1; padding-bottom: 8px; }
+        /* Tabla de Avance de Créditos Rejilla Fina */
+        .tabla-resumen-interno { width: 100%; border-collapse: collapse; margin-top: 5px; font-family: Arial, sans-serif; }
+        .tabla-resumen-interno th { 
+            background: #ffffff; 
+            color: #001e3d;
+            font-size: 10px; 
+            padding: 4px; 
+            font-weight: bold; 
+            border: 1px solid #7f7f7f; 
+            text-align: center;
+            text-decoration: underline;
+        }
+        .tabla-resumen-interno td { border: 1px solid #7f7f7f; text-align: center; padding: 4px; font-size: 10px; color: #000; }
+
+        /* Tabla de Asignaturas Semestrales en Azul Rey Exacto y bordes finos */
+        .tabla-materias-cch { width: 100%; border-collapse: collapse; margin-top: 5px; font-family: Arial, sans-serif; }
+        .tabla-materias-cch th { 
+            background: #002b5c; /* Azul Rey Exacto */
+            color: white; 
+            border: 1px solid #7f7f7f; 
+            padding: 5px 2px; 
+            font-size: 9px; 
+            text-align: center; 
+            font-weight: bold; 
+        }
+        .tabla-materias-cch td { border: 1px solid #7f7f7f; padding: 3px 2px; font-size: 9.5px; text-align: center; background: #fff; color: #333; }
+        .tabla-materias-cch td.left-text { text-align: left; padding-left: 6px; }
+        .fila-semestre-header { background: #e1e7f0; font-weight: bold; font-size: 10px; text-align: center; color: #001e3d; }
+        .fila-semestre-header td { border: 1px solid #7f7f7f; padding: 3px; }
+        
+        .notas-pie-tabla { margin-top: 12px; font-size: 10px; color: #333; border-bottom: 1px dashed #cbd5e1; padding-bottom: 8px; text-align: center; font-style: italic; }
         .barra-consulta-footer { margin-top: 15px; background: #cbd5e1; border: 1px solid #000; padding: 6px 12px; display: flex; gap: 12px; align-items: center; }
+        .barra-consulta-footer select { font-size: 12px; padding: 2px 4px; width: 165px; }
+        .barra-consulta-footer button { font-size: 12px; padding: 3px 16px; cursor: pointer; background: #f1f5f9; border: 1px solid #94a3b8; color: #000; }
     </style>
 </head>
 <body>
@@ -438,7 +469,7 @@
                         </tbody>
                     </table>
                     
-                    <div class="notes-pie-tabla">
+                    <div class="notas-pie-tabla">
                         TÉRMINO [34]: CONCLUYÓ BACHILLERATO (Y REALIZÓ PASE REGLAMENTADO)
                     </div>
                 </div>
